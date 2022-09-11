@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Portal } from '../Portal'
 
@@ -9,12 +9,17 @@ interface IModalProps {
   isOpen: boolean
   close: () => void
   onClose?: () => void
-  rootId?: string
+  overlayTopMargin: number
+}
+
+interface IModalContent {
+  children: React.ReactNode
+  closeModal: () => void
 }
 
 export const Modal = ({
-  rootId,
   isOpen,
+  overlayTopMargin = 0,
   close,
   onClose,
   children,
@@ -24,20 +29,37 @@ export const Modal = ({
     close()
   }
 
+  return isOpen ? (
+    <Portal>
+      <ModalOverlay
+        role='dialog'
+        aria-label='modal'
+        overlayTopMargin={overlayTopMargin}
+      >
+        <ModalContent closeModal={closeModal}>{children}</ModalContent>
+      </ModalOverlay>
+    </Portal>
+  ) : null
+}
+
+const ModalContent = ({ closeModal, children }: IModalContent) => {
   const handleParentClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation()
   }
 
-  return isOpen ? (
-    <Portal rootId={rootId}>
-      <ModalOverlay role='dialog' aria-label='modal' onClick={closeModal}>
-        {/**
-         * Lint rule disabled because onClick was used to stop click propagation and is not intended for user interaction
-         */
-        /* eslint-disable jsx-a11y/click-events-have-key-events */
-        /* eslint-disable-next-line jsx-a11y/no-static-element-interactions*/}
-        <div onClick={handleParentClick}>{children}</div>
-      </ModalOverlay>
-    </Portal>
-  ) : null
+  useEffect(() => {
+    document.addEventListener('mousedown', closeModal)
+
+    return () => {
+      document.removeEventListener('mousedown', closeModal)
+    }
+  }, [closeModal])
+
+  /**
+   * Lint rule disabled because onClick was used to stop click propagation and is not intended for user interaction
+   */
+
+  /* eslint-disable jsx-a11y/click-events-have-key-events */
+  /* eslint-disable-next-line jsx-a11y/no-static-element-interactions*/
+  return <div onMouseDown={handleParentClick}>{children}</div>
 }

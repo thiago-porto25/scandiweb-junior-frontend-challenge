@@ -1,13 +1,14 @@
 import { useState } from 'react'
-import { Container, Modal } from './shared/components'
+import { Modal } from './shared/components'
+import { GlobalLayout } from './shared/layouts'
 
 function App() {
   const [open, setOpen] = useState(false)
   return (
-    <Container>
+    <GlobalLayout>
       <button onClick={() => setOpen(true)}>toggle modal</button>
 
-      <Modal isOpen={open} close={() => setOpen(false)}>
+      <Modal isOpen={open} close={() => setOpen(false)} overlayTopMargin={80}>
         <div
           style={{
             position: 'absolute',
@@ -20,7 +21,7 @@ function App() {
           }}
         ></div>
       </Modal>
-    </Container>
+    </GlobalLayout>
   )
 }
 

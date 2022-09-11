@@ -3,11 +3,10 @@ import { createPortal } from 'react-dom'
 
 interface IPortalProps {
   children: React.ReactNode
-  rootId?: string
 }
 
-export const Portal = ({ rootId, children }: IPortalProps) => {
-  const portalRoot = document.querySelector(rootId || 'body') as HTMLElement
+export const Portal = ({ children }: IPortalProps) => {
+  const portalRoot = document.querySelector('body') as HTMLElement
 
   const container = useMemo(() => {
     const portal = document.createElement('div')
