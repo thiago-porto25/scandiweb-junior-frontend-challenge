@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-interface IStyledButtonProps {
+interface IButtonProps {
   variant?: 'primary' | 'secondary'
   round?: boolean
   smallText?: boolean
@@ -8,7 +8,9 @@ interface IStyledButtonProps {
   children: React.ReactNode
 }
 
-export const Button = styled.button<IStyledButtonProps>`
+export const Button = styled.button.attrs(({ selected }: IButtonProps) => ({
+  'aria-selected': selected,
+}))<IButtonProps>`
   ${({
     theme,
     variant = 'primary',
