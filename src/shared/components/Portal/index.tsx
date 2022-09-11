@@ -1,14 +1,13 @@
-import { useEffect, useMemo } from 'react'
+import React from 'react'
 import { createPortal } from 'react-dom'
 
 interface IPortalProps {
   children: React.ReactNode
 }
 
-export const Portal = ({ children }: IPortalProps) => {
-  const portalRoot = document.querySelector('body') as HTMLElement
-
-  const container = useMemo(() => {
+class Portal extends React.Component<IPortalProps> {
+  portalRoot = document.querySelector('body') as HTMLElement
+  container = (() => {
     const portal = document.createElement('div')
     portal.style.overflow = 'auto'
     portal.style.position = 'absolute'
@@ -19,15 +18,19 @@ export const Portal = ({ children }: IPortalProps) => {
     portal.id = 'cart-portal'
 
     return portal
-  }, [])
+  })()
 
-  useEffect(() => {
-    portalRoot.appendChild(container)
+  componentDidMount(): void {
+    this.portalRoot.appendChild(this.container)
+  }
 
-    return () => {
-      container.remove()
-    }
-  }, [portalRoot, container])
+  componentWillUnmount(): void {
+    this.container.remove()
+  }
 
-  return createPortal(children, container)
+  render(): React.ReactNode {
+    return createPortal(this.props.children, this.container)
+  }
 }
+
+export default Portal

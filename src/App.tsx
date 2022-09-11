@@ -1,28 +1,40 @@
-import { useState } from 'react'
-import { Modal } from './shared/components'
+import React from 'react'
+
 import { GlobalLayout } from './shared/layouts'
+import { Modal } from './shared/components'
 
-function App() {
-  const [open, setOpen] = useState(false)
-  return (
-    <GlobalLayout>
-      <button onClick={() => setOpen(true)}>toggle modal</button>
+class App extends React.Component {
+  state = {
+    open: false,
+  }
 
-      <Modal isOpen={open} close={() => setOpen(false)} overlayTopMargin={80}>
-        <div
-          style={{
-            position: 'absolute',
-            top: '20px',
-            right: '40px',
-            backgroundColor: 'black',
-            color: 'red',
-            width: '200px',
-            height: '500px',
-          }}
-        ></div>
-      </Modal>
-    </GlobalLayout>
-  )
+  render(): React.ReactNode {
+    return (
+      <GlobalLayout>
+        <button onClick={() => this.setState({ open: true })}>
+          toggle modal
+        </button>
+
+        <Modal
+          isOpen={this.state.open}
+          close={() => this.setState({ open: false })}
+          overlayTopMargin={80}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '40px',
+              backgroundColor: 'black',
+              color: 'red',
+              width: '200px',
+              height: '500px',
+            }}
+          ></div>
+        </Modal>
+      </GlobalLayout>
+    )
+  }
 }
 
 export default App
