@@ -1,5 +1,7 @@
 export { Button } from './Button'
 export { Color } from './Color'
 export { Container } from './Container'
+export { Modal } from './Modal'
+export { Portal } from './Portal'
 export { Spinner } from './Spinner'
 export { Typography } from './Typography'
