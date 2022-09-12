@@ -8,18 +8,21 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
+  PersistConfig,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+
+import type { RootState } from './shared/types'
 
 import currencyReducer, {
   currencyPersistConfig,
 } from './features/currency/store/currency.slice'
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   currency: persistReducer(currencyPersistConfig, currencyReducer),
 })
 
-const rootPersistConfig = {
+const rootPersistConfig: PersistConfig<RootState> = {
   key: 'root',
   storage,
 }
