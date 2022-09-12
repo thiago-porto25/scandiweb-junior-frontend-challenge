@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import storage from 'redux-persist/lib/storage'
 
 import type { ICurrency, ICurrencyState } from '../types'
 import { getCurrenciesThunk } from './thunks/getCurrencies.thunk'
@@ -40,3 +41,9 @@ export const currencySlice = createSlice({
 export const { changeCurrentCurrency } = currencySlice.actions
 
 export default currencySlice.reducer
+
+export const currencyPersistConfig = {
+  key: 'currency',
+  storage,
+  whitelist: ['currentCurrency'],
+}

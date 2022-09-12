@@ -1,14 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 import { client } from '@tilework/opus'
 import { ThemeProvider } from 'styled-components'
 
 import App from './App'
-import { store } from './store'
+import { store, persistor } from './store'
 
 import { theme } from './styles/theme'
 import { GlobalStyles } from './styles/GlobalStyles'
+
+import { LoadingLayout } from './shared/layouts/LoadingLayout'
 import { ErrorBoundary } from './shared/components'
 
 client.setEndpoint('http://localhost:4000')
@@ -18,9 +21,11 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <ErrorBoundary>
-          <App />
-        </ErrorBoundary>
+        <PersistGate loading={<LoadingLayout />} persistor={persistor}>
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
+        </PersistGate>
       </Provider>
       <GlobalStyles />
     </ThemeProvider>
