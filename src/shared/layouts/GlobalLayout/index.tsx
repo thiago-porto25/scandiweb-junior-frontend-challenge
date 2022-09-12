@@ -13,6 +13,7 @@ class GlobalLayout extends React.Component<iGlobalLayoutProps> {
           {/* TODO: Exchange div with Navbar component when it's created */}
           <div style={{ width: '100%', height: '80px', background: 'black' }} />
         </Container>
+
         <Container>{this.props.children}</Container>
       </>
     )

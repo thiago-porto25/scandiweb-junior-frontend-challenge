@@ -9,6 +9,7 @@ import { store } from './store'
 
 import { theme } from './styles/theme'
 import { GlobalStyles } from './styles/GlobalStyles'
+import { ErrorBoundary } from './shared/components'
 
 client.setEndpoint('http://localhost:4000')
 
@@ -17,7 +18,9 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </Provider>
       <GlobalStyles />
     </ThemeProvider>
