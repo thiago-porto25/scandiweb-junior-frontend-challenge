@@ -1,2 +1,7 @@
 export type { AppDispatch, IDispatchProp } from './appDispatch.type'
 export type { RootState } from './rootState.type'
+export type { Status } from './status.type'
+export type { IProduct } from './product.interface'
+export type { IAttribute } from './attribute.interface'
+export type { IAttributeSet } from './attributeSet.interface'
+export type { IPrice } from './price.interface'

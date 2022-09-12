@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
+import { selectCategoryIsError } from '../../../features/category/store/selectors'
 import { selectCurrencyIsError } from '../../../features/currency/store/selectors'
 
 import type { RootState } from '../../types'
@@ -38,7 +39,11 @@ class ErrorBoundary extends React.Component<
   }
 
   render() {
-    if (this.state.hasError || this.props.hasCurrencyError) {
+    if (
+      this.state.hasError ||
+      this.props.hasCategoryError ||
+      this.props.hasCurrencyError
+    ) {
       return (
         <ErrorBoundaryContainer>
           <LogoContainer>
@@ -67,6 +72,7 @@ class ErrorBoundary extends React.Component<
 
 const mapStateToProps = (state: RootState) => ({
   hasCurrencyError: selectCurrencyIsError(state),
+  hasCategoryError: selectCategoryIsError(state),
 })
 const connector = connect(mapStateToProps)
 

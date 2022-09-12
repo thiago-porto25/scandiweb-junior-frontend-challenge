@@ -17,14 +17,17 @@ import type { RootState } from './shared/types'
 import currencyReducer, {
   currencyPersistConfig,
 } from './features/currency/store/currency.slice'
+import categoryReducer from './features/category/store/category.slice'
 
 export const rootReducer = combineReducers({
   currency: persistReducer(currencyPersistConfig, currencyReducer),
+  category: categoryReducer,
 })
 
 const rootPersistConfig: PersistConfig<RootState> = {
   key: 'root',
   storage,
+  blacklist: ['category'],
 }
 
 export const store = configureStore({
