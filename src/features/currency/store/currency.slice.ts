@@ -3,10 +3,10 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage'
 
 import type { ICurrency, ICurrencyState } from '../types'
-import { getCurrenciesThunk } from './thunks/getCurrencies.thunk'
+import { getCurrenciesThunk } from './thunks'
 
 const initialState: ICurrencyState = {
-  currentCurrency: null,
+  currentCurrency: { label: 'USD', symbol: '$' },
   currencyList: null,
   status: 'idle',
 }

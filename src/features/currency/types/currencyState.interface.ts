@@ -1,4 +1,4 @@
-import type { Status } from '../../../shared/types/status.type'
+import type { Status } from '../../../shared/types'
 import type { ICurrency } from './currency.interface'
 
 export interface ICurrencyState {
