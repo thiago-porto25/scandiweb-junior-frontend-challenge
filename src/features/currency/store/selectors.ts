@@ -5,3 +5,6 @@ export const selectCurrentCurrency = (state: RootState) =>
 
 export const selectCurrencyList = (state: RootState) =>
   state.currency.currencyList
+
+export const selectCurrencyIsError = (state: RootState) =>
+  state.currency.status === 'failed'

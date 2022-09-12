@@ -8,9 +8,9 @@ export const getCurrenciesThunk = createAsyncThunk(
     try {
       const { currencies } = await CurrencyService.getAll()
 
-      return currencies as ICurrency[]
+      return Promise.resolve(currencies as ICurrency[])
     } catch (error) {
-      throw new Error('Something went wrong')
+      return Promise.reject(error)
     }
   }
 )

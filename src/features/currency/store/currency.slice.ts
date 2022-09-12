@@ -7,6 +7,7 @@ import { getCurrenciesThunk } from './thunks/getCurrencies.thunk'
 const initialState: ICurrencyState = {
   currentCurrency: null,
   currencyList: null,
+  status: 'idle',
 }
 
 export const currencySlice = createSlice({
@@ -18,10 +19,19 @@ export const currencySlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(getCurrenciesThunk.pending, (state) => {
+      state.status = 'pending'
+    })
+
+    builder.addCase(getCurrenciesThunk.rejected, (state) => {
+      state.status = 'failed'
+    })
+
     builder.addCase(
       getCurrenciesThunk.fulfilled,
       (state, action: PayloadAction<ICurrency[]>) => {
         state.currencyList = action.payload
+        state.status = 'succeeded'
       }
     )
   },

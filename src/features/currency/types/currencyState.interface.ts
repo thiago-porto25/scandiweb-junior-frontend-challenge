@@ -1,6 +1,8 @@
-import { ICurrency } from './currency.interface'
+import type { Status } from '../../../shared/types/status.type'
+import type { ICurrency } from './currency.interface'
 
 export interface ICurrencyState {
   currentCurrency: ICurrency | null
   currencyList: ICurrency[] | null
+  status: Status
 }
