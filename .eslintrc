@@ -6,5 +6,5 @@
     "prettier"
   ],
   "plugins": ["jsx-a11y"],
-  "rules": { "no-unused-vars": "warn" }
+  "rules": { "no-unused-vars": "warn", "no-restricted-globals": "off" }
 }
