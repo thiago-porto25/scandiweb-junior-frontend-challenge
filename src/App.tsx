@@ -1,16 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
-import type { IDispatchProp } from './shared/types'
 import { GlobalLayout } from './shared/layouts'
 
-import { getCurrenciesThunk } from './features/currency/store/thunks'
-
-class App extends React.Component<IDispatchProp> {
-  componentDidMount(): void {
-    this.props.dispatch(getCurrenciesThunk())
-  }
-
+class App extends React.Component {
   render(): React.ReactNode {
     return (
       <GlobalLayout>
@@ -20,4 +12,4 @@ class App extends React.Component<IDispatchProp> {
   }
 }
 
-export default connect()(App)
+export default App
