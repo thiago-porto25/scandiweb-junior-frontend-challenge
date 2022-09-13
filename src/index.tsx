@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { client } from '@tilework/opus'
 import { ThemeProvider } from 'styled-components'
 
@@ -23,7 +24,9 @@ root.render(
       <Provider store={store}>
         <PersistGate loading={<LoadingLayout />} persistor={persistor}>
           <ErrorBoundary>
-            <App />
+            <Router>
+              <App />
+            </Router>
           </ErrorBoundary>
         </PersistGate>
       </Provider>
