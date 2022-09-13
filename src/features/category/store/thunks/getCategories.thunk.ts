@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+
+import type { GetAllCategoriesResponse } from '../../types'
+
 import { CategoryService } from '../../services/category.service'
-import { ICategory } from '../../types'
 
 export const getCategoriesThunk = createAsyncThunk(
   'category/getCategories',
@@ -8,7 +10,7 @@ export const getCategoriesThunk = createAsyncThunk(
     try {
       const { categories } = await CategoryService.getAll()
 
-      return Promise.resolve(categories as ICategory[])
+      return Promise.resolve(categories as GetAllCategoriesResponse[])
     } catch (error) {
       return Promise.reject(error)
     }
