@@ -35,11 +35,16 @@ export const ToggleCurrencySwitcher = styled.button`
 `
 
 export const CurrencyList = styled.ul`
-  max-width: 114px;
+  width: 114px;
   box-shadow: ${({ theme }) => theme.boxShadow.regular};
   position: absolute;
   top: 38px;
   left: -18px;
+
+  @media (max-width: 1400px) {
+    left: auto;
+    right: 0px;
+  }
 `
 
 export const ChevronContainer = styled.div<IChevronContainerProps>`
