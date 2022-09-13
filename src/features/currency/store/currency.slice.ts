@@ -45,5 +45,5 @@ export default currencySlice.reducer
 export const currencyPersistConfig = {
   key: 'currency',
   storage,
-  whitelist: ['currentCurrency'],
+  blacklist: ['status', 'currencyList'],
 }

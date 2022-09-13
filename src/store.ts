@@ -8,11 +8,7 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-  PersistConfig,
 } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-
-import type { RootState } from './shared/types'
 
 import currencyReducer, {
   currencyPersistConfig,
@@ -24,14 +20,8 @@ export const rootReducer = combineReducers({
   category: categoryReducer,
 })
 
-const rootPersistConfig: PersistConfig<RootState> = {
-  key: 'root',
-  storage,
-  blacklist: ['category'],
-}
-
 export const store = configureStore({
-  reducer: persistReducer(rootPersistConfig, rootReducer),
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
