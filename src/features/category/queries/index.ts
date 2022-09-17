@@ -11,15 +11,19 @@ export const getCategoryProductsQuery = (name: string) =>
       new Field('products', true)
         .addFieldList(['brand', 'id', 'name', 'inStock', 'gallery'])
         .addField(
-          new Field('attributes')
+          new Field('attributes', true)
             .addFieldList(['id', 'name', 'type'])
             .addField(
-              new Field('items').addFieldList(['id', 'value', 'displayValue'])
+              new Field('items', true).addFieldList([
+                'id',
+                'value',
+                'displayValue',
+              ])
             )
         )
         .addField(
-          new Field('prices')
-            .addField(new Field('currency').addField('label'))
+          new Field('prices', true)
+            .addField(new Field('currency').addFieldList(['label', 'symbol']))
             .addField('amount')
         )
     )

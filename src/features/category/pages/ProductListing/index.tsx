@@ -6,11 +6,14 @@ import type { AppDispatch, RootState } from '../../../../shared/types'
 import { LoadingLayout } from '../../../../shared/layouts'
 import { Typography } from '../../../../shared/components'
 
+import { selectCurrentCurrency } from '../../../currency/store/selectors'
+
 import {
   selectCurrentCategoryProductList,
   selectCurrentCategoryName,
 } from '../../store/selectors'
 import { getCategoryProductsThunk } from '../../store/thunks'
+import { ProductCard } from '../../components'
 
 import { HeadingContainer, ProductList } from './styles'
 
@@ -33,7 +36,9 @@ class ProductListingPage extends React.Component<IProductListingPageProps> {
   }
 
   render(): React.ReactNode {
-    const { currentCategoryProductList, currentCategoryName } = this.props
+    const { currentCategoryProductList, currentCategoryName, currentCurrency } =
+      this.props
+
     return currentCategoryProductList ? (
       <>
         <HeadingContainer>
@@ -44,11 +49,11 @@ class ProductListingPage extends React.Component<IProductListingPageProps> {
 
         <ProductList>
           {currentCategoryProductList.map((product) => (
-            <li key={product.id}>
-              <div style={{ width: '100%', height: '250px' }}>
-                {product.name}
-              </div>
-            </li>
+            <ProductCard
+              key={product.id}
+              product={product}
+              currentCurrency={currentCurrency}
+            />
           ))}
         </ProductList>
       </>
@@ -61,6 +66,7 @@ class ProductListingPage extends React.Component<IProductListingPageProps> {
 const mapStateToProps = (state: RootState) => ({
   currentCategoryName: selectCurrentCategoryName(state),
   currentCategoryProductList: selectCurrentCategoryProductList(state),
+  currentCurrency: selectCurrentCurrency(state),
 })
 const connector = connect(mapStateToProps)
 

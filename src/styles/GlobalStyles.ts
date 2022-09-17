@@ -89,7 +89,7 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
   	font-size: 100%;
   	list-style-type: none;
-    font-family:${({ theme }) => theme.fontFamily.primary};
+    font-family: ${({ theme }) => theme.fontFamily.primary};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

@@ -12,4 +12,9 @@ export const ProductList = styled.ul`
   place-items: center;
   row-gap: 103px;
   column-gap: 40px;
+  margin-bottom: 80px;
+
+  @media (max-width: 620px) {
+    grid-template-columns: 1fr;
+  }
 `

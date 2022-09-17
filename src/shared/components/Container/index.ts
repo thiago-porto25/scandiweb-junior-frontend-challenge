@@ -5,7 +5,7 @@ export const Container = styled.div`
   width: 100%;
   flex: 1;
   max-width: 1240px;
-  padding: 0 auto;
+  padding: 0;
 
   @media (max-width: 1240px) {
     padding: 0 48px;
