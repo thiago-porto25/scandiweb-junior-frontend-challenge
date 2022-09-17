@@ -8,7 +8,10 @@ import { Typography } from '../../../../shared/components'
 import type { GetAllCategoriesResponse } from '../../types'
 import { changeCurrentCategory } from '../../store/category.slice'
 import { getCategoriesThunk } from '../../store/thunks'
-import { selectCategoryList } from '../../store/selectors'
+import {
+  selectCategoryList,
+  selectCurrentCategoryName,
+} from '../../store/selectors'
 
 import { List } from './styles'
 
@@ -28,7 +31,7 @@ class CategorySwitcher extends React.Component<ICategorySwitcherProps> {
   }
 
   render(): React.ReactNode {
-    const { categoryList } = this.props
+    const { categoryList, currentCategoryName } = this.props
 
     return (
       <nav>
@@ -42,7 +45,10 @@ class CategorySwitcher extends React.Component<ICategorySwitcherProps> {
                     this.changeSelectedCategory(category)
                   }}
                   className={({ isActive }) =>
-                    'nav-link' + (isActive ? ' activated' : '')
+                    'nav-link' +
+                    (isActive || currentCategoryName === category.name
+                      ? ' activated'
+                      : '')
                   }
                 >
                   <Typography textStyle='category'>{category.name}</Typography>
@@ -58,6 +64,7 @@ class CategorySwitcher extends React.Component<ICategorySwitcherProps> {
 
 const mapStateToProps = (state: RootState) => ({
   categoryList: selectCategoryList(state),
+  currentCategoryName: selectCurrentCategoryName(state),
 })
 const connector = connect(mapStateToProps)
 

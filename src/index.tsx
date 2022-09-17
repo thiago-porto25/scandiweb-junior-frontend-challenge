@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -25,7 +25,9 @@ root.render(
         <PersistGate loading={<LoadingLayout />} persistor={persistor}>
           <ErrorBoundary>
             <Router>
-              <App />
+              <Suspense fallback={<LoadingLayout />}>
+                <App />
+              </Suspense>
             </Router>
           </ErrorBoundary>
         </PersistGate>
