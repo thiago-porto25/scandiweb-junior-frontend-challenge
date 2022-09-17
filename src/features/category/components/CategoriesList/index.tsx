@@ -1,9 +1,8 @@
 import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
-import { NavLink } from 'react-router-dom'
 
 import type { AppDispatch, RootState } from '../../../../shared/types'
-import { Typography } from '../../../../shared/components'
+import { Button, Typography } from '../../../../shared/components'
 
 import type { GetAllCategoriesResponse } from '../../types'
 import { changeCurrentCategory } from '../../store/category.slice'
@@ -39,20 +38,18 @@ class CategorySwitcher extends React.Component<ICategorySwitcherProps> {
           <List>
             {categoryList.map((category, i) => (
               <li key={`${category.name}-${i}`}>
-                <NavLink
-                  to={`/category/${category.name}`}
+                <Button
+                  variant='ghost'
                   onClick={() => {
                     this.changeSelectedCategory(category)
                   }}
-                  className={({ isActive }) =>
-                    'nav-link' +
-                    (isActive || currentCategoryName === category.name
-                      ? ' activated'
-                      : '')
+                  className={
+                    'category-item' +
+                    (currentCategoryName === category.name ? ' activated' : '')
                   }
                 >
                   <Typography textStyle='category'>{category.name}</Typography>
-                </NavLink>
+                </Button>
               </li>
             ))}
           </List>

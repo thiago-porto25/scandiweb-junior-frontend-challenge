@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 interface IButtonProps {
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'ghost'
   round?: boolean
   smallText?: boolean
   selected?: boolean
@@ -59,6 +59,20 @@ export const Button = styled.button.attrs(({ selected }: IButtonProps) => ({
         color: ${theme.colors.neutral.light};
         pointer-events: none;
       `}
+    `}
+
+    ${variant === 'ghost' &&
+    css`
+      background-color: transparent;
+      border: none;
+      width: auto;
+      height: auto;
+      padding: 0;
+
+      &:hover {
+        background-color: ${theme.colors.neutral.highlight};
+        border: none;
+      }
     `}
   `}
 `

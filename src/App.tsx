@@ -12,13 +12,7 @@ class App extends React.Component {
     return (
       <GlobalLayout>
         <Routes>
-          <Route path='/' element={<ProductListingPage />}>
-            <Route
-              path='category/:categoryName'
-              element={<ProductListingPage />}
-            />
-          </Route>
-
+          <Route path='/' element={<ProductListingPage />} />
           <Route path='*' element={<Navigate to='/' />} />
         </Routes>
         <div />

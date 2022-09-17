@@ -10,7 +10,7 @@ export const List = styled.ul`
       height: inherit;
     }
 
-    .nav-link {
+    .category-item {
       height: inherit;
       display: flex;
       padding: 0 16px;
@@ -18,7 +18,7 @@ export const List = styled.ul`
       text-transform: uppercase;
     }
 
-    .nav-link.activated {
+    .category-item.activated {
       color: green;
       border-bottom: 2px solid ${theme.colors.brand.primary};
 
