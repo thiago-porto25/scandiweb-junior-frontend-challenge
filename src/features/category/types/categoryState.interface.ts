@@ -1,4 +1,4 @@
-import type { Status } from '../../../shared/types'
+import type { IProduct, Status } from '../../../shared/types'
 
 import type {
   GetAllCategoriesResponse,
@@ -9,5 +9,6 @@ export interface ICategoryState {
   status: Status
   currentCategory: GetAllCategoriesResponse | null
   currentCategoryProductList: GetCategoryProductsResponse[] | null
-  CategoryList: GetAllCategoriesResponse[] | null
+  categoryList: GetAllCategoriesResponse[] | null
+  displayProduct: IProduct | null
 }
