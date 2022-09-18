@@ -2,7 +2,7 @@ import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
 import type { AppDispatch, RootState } from '../../../../shared/types'
-import { Button, Typography } from '../../../../shared/components'
+import { Typography } from '../../../../shared/components'
 
 import type { GetAllCategoriesResponse } from '../../types'
 import { changeCurrentCategory } from '../../store/category.slice'
@@ -13,6 +13,7 @@ import {
 } from '../../store/selectors'
 
 import { List } from './styles'
+import { Link } from 'react-router-dom'
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
@@ -38,8 +39,8 @@ class CategorySwitcher extends React.Component<ICategorySwitcherProps> {
           <List>
             {categoryList.map((category, i) => (
               <li key={`${category.name}-${i}`}>
-                <Button
-                  variant='ghost'
+                <Link
+                  to='/'
                   onClick={() => {
                     this.changeSelectedCategory(category)
                   }}
@@ -49,7 +50,7 @@ class CategorySwitcher extends React.Component<ICategorySwitcherProps> {
                   }
                 >
                   <Typography textStyle='category'>{category.name}</Typography>
-                </Button>
+                </Link>
               </li>
             ))}
           </List>
