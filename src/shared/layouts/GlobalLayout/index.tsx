@@ -29,7 +29,7 @@ class GlobalLayout extends React.Component<iGlobalLayoutProps> {
           </div>
         </Container>
 
-        <Container>{this.props.children}</Container>
+        <Container takesAvailableSpace>{this.props.children}</Container>
       </>
     )
   }

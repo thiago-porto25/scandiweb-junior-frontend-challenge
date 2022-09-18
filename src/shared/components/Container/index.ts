@@ -1,9 +1,13 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+interface IContainerProps {
+  takesAvailableSpace?: boolean
+}
+
+export const Container = styled.div<IContainerProps>`
   height: 100%;
   width: 100%;
-  flex: 1;
+  flex: ${({ takesAvailableSpace }) => (takesAvailableSpace ? 1 : 0)};
   max-width: 1240px;
   padding: 0;
 

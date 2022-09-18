@@ -13,9 +13,13 @@ export const List = styled.ul`
     .category-item {
       height: inherit;
       display: flex;
-      padding: 0 16px;
+      padding: 16px;
       color: ${theme.colors.neutral.dark};
       text-transform: uppercase;
+
+      &:hover {
+        background-color: ${theme.colors.neutral.highlight};
+      }
     }
 
     .category-item.activated {
