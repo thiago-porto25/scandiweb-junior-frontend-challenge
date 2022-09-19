@@ -32,6 +32,10 @@ export const CategorySlice = createSlice({
     ) => {
       state.currentCategory = action.payload
     },
+
+    resetDisplayProduct: (state) => {
+      state.displayProduct = null
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getCategoriesThunk.pending, (state) => {
@@ -79,6 +83,7 @@ export const CategorySlice = createSlice({
   },
 })
 
-export const { changeCurrentCategory } = CategorySlice.actions
+export const { changeCurrentCategory, resetDisplayProduct } =
+  CategorySlice.actions
 
 export default CategorySlice.reducer

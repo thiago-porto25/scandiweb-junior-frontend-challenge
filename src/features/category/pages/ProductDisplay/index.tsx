@@ -5,13 +5,15 @@ import { connect } from 'react-redux'
 
 import type { AppDispatch, RootState } from '../../../../shared/types'
 import { LoadingLayout } from '../../../../shared/layouts'
-import { Typography } from '../../../../shared/components'
 
 import { selectCurrentCurrency } from '../../../currency/store/selectors'
 
+import { resetDisplayProduct } from '../../store/category.slice'
 import { selectDisplayProduct } from '../../store/selectors'
-import { PageContainer } from './styles'
 import { getDisplayProductThunk } from '../../store/thunks'
+import { ProductImagesDisplay, ProductInformation } from '../../components'
+
+import { PageContainer } from './styles'
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
@@ -27,16 +29,29 @@ interface IProductDisplayPageProps
 
 class ProductDisplayPage extends React.Component<IProductDisplayPageProps> {
   componentDidMount(): void {
-    const id = this.props.match.params?.id
+    const id = this.props.match.params.id
 
-    if (id) this.props.dispatch(getDisplayProductThunk(id))
+    this.props.dispatch(getDisplayProductThunk(id))
+  }
+
+  componentWillUnmount(): void {
+    this.props.dispatch(resetDisplayProduct())
   }
 
   render(): React.ReactNode {
     const { currentCurrency, displayProduct } = this.props
 
     return displayProduct ? (
-      <PageContainer>{displayProduct.brand}</PageContainer>
+      <PageContainer>
+        <ProductImagesDisplay
+          name={displayProduct.name}
+          gallery={displayProduct.gallery}
+        />
+        <ProductInformation
+          product={displayProduct}
+          currentCurrency={currentCurrency}
+        />
+      </PageContainer>
     ) : (
       <LoadingLayout />
     )

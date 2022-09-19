@@ -96,7 +96,7 @@ export const ProductCardImage = styled.img`
   max-width: 354px;
   max-height: 330px;
   height: 330px;
-  object-fit: contain;
+  object-fit: cover;
 
   @media (max-width: 620px) {
     width: 100%;

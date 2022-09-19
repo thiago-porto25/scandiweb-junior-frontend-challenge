@@ -92,6 +92,7 @@ export const theme = {
       fontWeight: 700,
       fontSize: fontSize.sm,
       lineHeight: lineHeight.xs,
+      'text-transform': 'uppercase',
     },
 
     attributeNameSmall: {
@@ -99,6 +100,7 @@ export const theme = {
       fontWeight: 400,
       fontSize: fontSize.xxs,
       lineHeight: lineHeight.md,
+      'text-transform': 'uppercase',
     },
 
     sizeAttributeRegular: {

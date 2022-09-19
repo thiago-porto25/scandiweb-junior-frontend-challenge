@@ -24,13 +24,21 @@ interface IProductListingPageProps extends PropsFromRedux {
 }
 
 class ProductListingPage extends React.Component<IProductListingPageProps> {
+  componentDidMount(): void {
+    this.fetchProducts()
+  }
+
   componentDidUpdate(prevProps: Readonly<IProductListingPageProps>): void {
     const currentCategoryName = this.props.currentCategoryName
 
-    if (
-      currentCategoryName &&
-      prevProps.currentCategoryName !== currentCategoryName
-    ) {
+    if (currentCategoryName !== prevProps.currentCategoryName)
+      this.fetchProducts()
+  }
+
+  fetchProducts = (): void => {
+    const currentCategoryName = this.props.currentCategoryName
+
+    if (currentCategoryName) {
       this.props.dispatch(getCategoryProductsThunk(currentCategoryName))
     }
   }

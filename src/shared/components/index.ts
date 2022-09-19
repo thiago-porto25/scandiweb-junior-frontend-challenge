@@ -1,3 +1,4 @@
+export { default as AttributeItemsList } from './AttributeItemsList'
 export { Button } from './Button'
 export { Color } from './Color'
 export { Container } from './Container'

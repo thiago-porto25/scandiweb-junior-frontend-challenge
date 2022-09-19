@@ -35,6 +35,11 @@ export const Button = styled.button.attrs(({ selected }: IButtonProps) => ({
     background-color: ${theme.colors.brand.primary};
     border: 1px solid ${theme.colors.brand.primary};
 
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
     &:hover {
       background-color: ${theme.colors.brand.primaryHighlight};
       border: 1px solid ${theme.colors.brand.primaryHighlight};
