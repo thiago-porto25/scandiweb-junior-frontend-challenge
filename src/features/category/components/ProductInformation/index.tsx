@@ -18,7 +18,12 @@ import {
   ButtonContainer,
   TitleContainer,
 } from './styles'
+import { addItemToCart } from '../../../cart/store/cart.slice'
 
+interface IAttributeValues {
+  value: string
+  displayValue: string
+}
 interface ISelectedInfo {
   id: string
   selectedId: string
@@ -61,9 +66,26 @@ class ProductInformation extends React.Component<
     }))
   }
 
+  findAttributeValues = (attribute: ISelectedInfo): IAttributeValues => {
+    const values = this.props.product.attributes
+      .find((attr) => attr.id === attribute.id)
+      ?.items.find((item) => item.id === attribute.selectedId)
+
+    return { displayValue: values!.displayValue, value: values!.value }
+  }
+
   handleAddToCart = () => {
-    console.log('Add to cart')
-    // TODO: IMPLEMENT ADD TO CART logic / dispatch action
+    this.props.dispatch(
+      addItemToCart({
+        ...this.props.product,
+        quantity: 1,
+        selectedAttributes: this.state.selectedAttributes.map((attribute) => ({
+          id: attribute.selectedId,
+          attributeSetId: attribute.id,
+          ...this.findAttributeValues(attribute),
+        })),
+      })
+    )
   }
 
   render(): React.ReactNode {

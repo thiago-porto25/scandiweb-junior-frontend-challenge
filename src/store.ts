@@ -13,10 +13,14 @@ import {
 import currencyReducer, {
   currencyPersistConfig,
 } from './features/currency/store/currency.slice'
+import cartReducer, {
+  cartPersistConfig,
+} from './features/cart/store/cart.slice'
 import categoryReducer from './features/category/store/category.slice'
 
 export const rootReducer = combineReducers({
   currency: persistReducer(currencyPersistConfig, currencyReducer),
+  cart: persistReducer(cartPersistConfig, cartReducer),
   category: categoryReducer,
 })
 

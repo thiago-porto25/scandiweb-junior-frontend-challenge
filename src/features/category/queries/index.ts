@@ -9,7 +9,15 @@ export const getCategoryProductsQuery = (name: string) =>
     .addArgument('input', 'CategoryInput', { title: name })
     .addField(
       new Field('products', true)
-        .addFieldList(['brand', 'id', 'name', 'inStock', 'gallery'])
+        .addFieldList([
+          'brand',
+          'id',
+          'name',
+          'inStock',
+          'gallery',
+          'description',
+          'category',
+        ])
         .addField(
           new Field('attributes', true)
             .addFieldList(['id', 'name', 'type'])

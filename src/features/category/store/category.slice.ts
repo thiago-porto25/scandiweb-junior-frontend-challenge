@@ -3,11 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 import type { IProduct } from '../../../shared/types'
 
-import type {
-  GetAllCategoriesResponse,
-  GetCategoryProductsResponse,
-  ICategoryState,
-} from '../types'
+import type { GetAllCategoriesResponse, ICategoryState } from '../types'
 import {
   getCategoriesThunk,
   getCategoryProductsThunk,
@@ -61,7 +57,7 @@ export const CategorySlice = createSlice({
     })
     builder.addCase(
       getCategoryProductsThunk.fulfilled,
-      (state, action: PayloadAction<GetCategoryProductsResponse[]>) => {
+      (state, action: PayloadAction<IProduct[]>) => {
         state.currentCategoryProductList = action.payload
         state.status = 'succeeded'
       }

@@ -1,30 +1,46 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import type { AppDispatch, IProduct } from '../../../../shared/types'
 import { Button, Typography } from '../../../../shared/components'
+import { CartIcon } from '../../../../shared/svg'
 
 import type { ICurrency } from '../../../currency/types'
 import { priceInCurrentCurrency } from '../../../currency/helpers'
 
-import type { GetCategoryProductsResponse } from '../../types'
+import type { ISelectedAttribute } from '../../../cart/types'
+import { addItemToCart } from '../../../cart/store/cart.slice'
 import {
   ProductCardContainer,
   ProductCardImage,
   ProductCardImageContainer,
   ProductCardInfoContainer,
 } from './styles'
-import { CartIcon } from '../../../../shared/svg'
 
 interface IProductCardProps {
-  product: GetCategoryProductsResponse
+  product: IProduct
   currentCurrency: ICurrency | null
+  dispatch: AppDispatch
 }
 
 class ProductCard extends React.Component<IProductCardProps> {
-  handleAddToCart = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void => {
-    console.log('Add to cart')
-    // TODO: dispatch Add to cart action
+  handleAddToCart = (): void => {
+    const selectedAttributes: ISelectedAttribute[] =
+      this.props.product.attributes.map((attribute) => ({
+        attributeSetId: attribute.id,
+        id: attribute.items[0].id,
+        displayValue: attribute.items[0].displayValue,
+        value: attribute.items[0].value,
+      }))
+
+    this.props.dispatch(
+      addItemToCart({
+        ...this.props.product,
+        quantity: 1,
+        selectedAttributes,
+      })
+    )
   }
 
   render(): React.ReactNode {
@@ -58,4 +74,4 @@ class ProductCard extends React.Component<IProductCardProps> {
   }
 }
 
-export default ProductCard
+export default connect()(ProductCard)
