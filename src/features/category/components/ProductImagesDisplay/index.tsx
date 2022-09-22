@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Button } from '../../../../shared/components'
+
 import {
   FocusedImage,
   ImagesList,
@@ -30,11 +32,14 @@ class ProductImagesDisplay extends React.Component<IProductImagesDisplayProps> {
       <ProductImagesDisplayContainer>
         <ImagesList>
           {gallery.map((image, i) => (
-            <li
-              key={`${image.slice(0, 8)}-${i}`}
-              onMouseEnter={() => this.handleImageClick(i)}
-            >
-              <SmallImage src={image} alt={name} />
+            <li key={`${image.slice(0, 8)}-${i}`}>
+              <Button
+                variant='ghost'
+                onMouseEnter={() => this.handleImageClick(i)}
+                onClick={() => this.handleImageClick(i)}
+              >
+                <SmallImage src={image} alt={name} />
+              </Button>
             </li>
           ))}
         </ImagesList>
