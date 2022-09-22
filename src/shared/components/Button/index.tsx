@@ -26,9 +26,11 @@ export const Button = styled.button.attrs(({ selected }: IButtonProps) => ({
     justify-content: center;
     text-transform: uppercase;
     user-select: none;
+    position: relative;
     cursor: pointer;
     outline: none;
-    transition: background-color 130ms ease, border-color 130ms ease;
+    transition: background-color 130ms ease, border-color 130ms ease,
+      fill 130ms ease;
     ${smallText
       ? theme.textStyles.buttonSmall
       : theme.textStyles.buttonRegular};
@@ -75,8 +77,13 @@ export const Button = styled.button.attrs(({ selected }: IButtonProps) => ({
       padding: 0;
 
       &:hover {
-        background-color: ${theme.colors.neutral.highlight};
+        background-color: transparent;
         border: none;
+
+        svg,
+        path {
+          fill: ${theme.colors.neutral.dark}dd;
+        }
       }
     `}
   `}

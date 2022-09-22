@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
 
 import type { AppDispatch, RootState } from '../../../../shared/types'
@@ -12,8 +13,7 @@ import {
   selectCurrentCategoryName,
 } from '../../store/selectors'
 
-import { List } from './styles'
-import { Link } from 'react-router-dom'
+import { List, Nav } from './styles'
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
@@ -34,7 +34,7 @@ class CategorySwitcher extends React.Component<ICategorySwitcherProps> {
     const { categoryList, currentCategoryName } = this.props
 
     return (
-      <nav>
+      <Nav>
         {categoryList?.length && (
           <List>
             {categoryList.map((category, i) => (
@@ -55,7 +55,7 @@ class CategorySwitcher extends React.Component<ICategorySwitcherProps> {
             ))}
           </List>
         )}
-      </nav>
+      </Nav>
     )
   }
 }

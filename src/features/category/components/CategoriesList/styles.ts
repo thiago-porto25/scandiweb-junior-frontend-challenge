@@ -1,8 +1,12 @@
 import styled, { css } from 'styled-components'
 
+export const Nav = styled.nav`
+  height: 100%;
+`
+
 export const List = styled.ul`
   ${({ theme }) => css`
-    height: 52px;
+    height: 100%;
     display: flex;
     column-gap: 16px;
 
@@ -13,6 +17,7 @@ export const List = styled.ul`
     .category-item {
       height: inherit;
       display: flex;
+      align-items: center;
       padding: 16px;
       color: ${theme.colors.neutral.dark};
       text-transform: uppercase;

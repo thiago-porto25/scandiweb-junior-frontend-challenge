@@ -132,6 +132,13 @@ export const theme = {
       lineHeight: lineHeight.md,
     },
 
+    badge: {
+      fontFamily: fontFamily.secondary,
+      fontWeight: 700,
+      fontSize: '12px',
+      lineHeight: lineHeight.lg,
+    },
+
     totalSmall: {
       fontFamily: fontFamily.secondary,
       fontWeight: 500,
