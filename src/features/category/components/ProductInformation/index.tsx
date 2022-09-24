@@ -12,21 +12,18 @@ import {
 import type { ICurrency } from '../../../currency/types'
 import { priceInCurrentCurrency } from '../../../currency/helpers'
 
+import type { ISelectedInfo } from '../../types'
+import { addItemToCart } from '../../../cart/store/cart.slice'
 import {
   ProductInformationContainer,
   AttributeList,
   ButtonContainer,
   TitleContainer,
 } from './styles'
-import { addItemToCart } from '../../../cart/store/cart.slice'
 
 interface IAttributeValues {
   value: string
   displayValue: string
-}
-interface ISelectedInfo {
-  id: string
-  selectedId: string
 }
 
 interface IProductInformationProps {
@@ -94,11 +91,10 @@ class ProductInformation extends React.Component<
       <ProductInformationContainer>
         <TitleContainer>
           <Typography textStyle='brandName' as='h1'>
-            {product.name}
-          </Typography>
-
-          <Typography textStyle='productTitleLarge' as='span'>
-            {product.brand}
+            {product.brand} <br />
+            <Typography textStyle='productTitleLarge' as='span'>
+              {product.name}
+            </Typography>
           </Typography>
         </TitleContainer>
 
@@ -109,7 +105,8 @@ class ProductInformation extends React.Component<
                 attribute={attribute}
                 selectedId={
                   this.state.selectedAttributes.find(
-                    (selectedAttribute) => selectedAttribute.id === attribute.id
+                    (selectedAttribute) =>
+                      selectedAttribute?.id === attribute.id
                   )?.selectedId || ''
                 }
                 onSelect={this.handleAttributeSelect}

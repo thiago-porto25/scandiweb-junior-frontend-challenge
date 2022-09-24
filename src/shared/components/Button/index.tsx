@@ -57,6 +57,11 @@ export const Button = styled.button.attrs(({ selected }: IButtonProps) => ({
         background-color: ${theme.colors.neutral.dark};
         border: 1px solid ${theme.colors.neutral.dark};
         color: ${theme.colors.neutral.light};
+
+        > ::after,
+        > ::before {
+          background-color: ${theme.colors.neutral.light};
+        }
       }
 
       ${selected &&

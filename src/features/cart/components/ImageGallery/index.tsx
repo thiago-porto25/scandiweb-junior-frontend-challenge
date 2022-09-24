@@ -1,8 +1,65 @@
 import React from 'react'
 
-class ImageGallery extends React.Component {
+import {
+  GalleryButton,
+  GalleryButtonsContainer,
+  ImageGalleryContainer,
+} from './styles'
+
+interface IImageGalleryProps {
+  gallery: string[]
+  brand: string
+  name: string
+}
+
+interface IImageGalleryState {
+  selectedImage: number
+}
+
+class ImageGallery extends React.Component<
+  IImageGalleryProps,
+  IImageGalleryState
+> {
+  state = {
+    selectedImage: 0,
+  }
+
+  handleNextImage = (): void => {
+    this.setState({
+      selectedImage:
+        this.state.selectedImage === this.props.gallery.length - 1
+          ? 0
+          : this.state.selectedImage + 1,
+    })
+  }
+
+  handlePreviousImage = (): void => {
+    this.setState({
+      selectedImage:
+        this.state.selectedImage === 0
+          ? this.props.gallery.length - 1
+          : this.state.selectedImage - 1,
+    })
+  }
+
   render(): React.ReactNode {
-    return <div>Image Gallery</div>
+    const { gallery, name, brand } = this.props
+    const { selectedImage } = this.state
+
+    return (
+      <ImageGalleryContainer>
+        <img src={gallery[selectedImage]} alt={`${brand} ${name}`} />
+
+        {gallery.length > 1 && (
+          <GalleryButtonsContainer>
+            <GalleryButton onClick={this.handlePreviousImage}>
+              &lt;
+            </GalleryButton>
+            <GalleryButton onClick={this.handleNextImage}>&gt;</GalleryButton>
+          </GalleryButtonsContainer>
+        )}
+      </ImageGalleryContainer>
+    )
   }
 }
 

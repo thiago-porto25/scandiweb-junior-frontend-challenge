@@ -11,11 +11,15 @@ interface IAttributeItemsListProps {
   attribute: IAttributeSet
   selectedId: string
   onSelect: (attributeId: string, itemId: string) => void
+  isSmall?: boolean
 }
 
 class AttributeItemsList extends React.Component<IAttributeItemsListProps> {
   render() {
     const { attribute, selectedId, onSelect } = this.props
+
+    /* TODO: Add small variant for typographies */
+
     return (
       <AttributeItemsListContainer>
         <Typography textStyle='attributeNameRegular'>

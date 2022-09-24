@@ -13,9 +13,17 @@ import {
 interface IProductImagesDisplayProps {
   gallery: string[]
   name: string
+  brand: string
 }
 
-class ProductImagesDisplay extends React.Component<IProductImagesDisplayProps> {
+interface IProductImagesDisplayState {
+  selectedImage: number
+}
+
+class ProductImagesDisplay extends React.Component<
+  IProductImagesDisplayProps,
+  IProductImagesDisplayState
+> {
   state = {
     selectedImage: 0,
   }
@@ -25,7 +33,7 @@ class ProductImagesDisplay extends React.Component<IProductImagesDisplayProps> {
   }
 
   render(): React.ReactNode {
-    const { gallery, name } = this.props
+    const { gallery, name, brand } = this.props
     const { selectedImage } = this.state
 
     return (
@@ -48,7 +56,7 @@ class ProductImagesDisplay extends React.Component<IProductImagesDisplayProps> {
           <FocusedImage
             key={`${gallery[selectedImage].slice(0, 8)}-${selectedImage}`}
             src={gallery[selectedImage]}
-            alt={name}
+            alt={`${brand} ${name}`}
           />
         </FocusedImageContainer>
       </ProductImagesDisplayContainer>

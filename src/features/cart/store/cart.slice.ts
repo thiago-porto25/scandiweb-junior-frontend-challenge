@@ -13,55 +13,83 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addItemToCart: (state, action: PayloadAction<ICartItem>) => {
-      const itemIndex = state.items.findIndex(
-        (item) => item.id === action.payload.id
+      const cartItemIndex = state.items.findIndex(
+        (cartItem) => cartItem.id === action.payload.id
       )
 
-      if (itemIndex === -1) {
+      if (cartItemIndex === -1) {
         state.items.push(action.payload)
       } else {
-        state.items[itemIndex].quantity += action.payload.quantity
+        state.items[cartItemIndex].quantity += action.payload.quantity
       }
     },
     incrementItemQuantity: (state, action: PayloadAction<string>) => {
-      const item = state.items.find((item) => item.id === action.payload)
+      const cartItem = state.items.find(
+        (cartItem) => cartItem.id === action.payload
+      )
 
-      if (item) item.quantity++
+      if (cartItem) cartItem.quantity++
     },
     decrementItemQuantity: (state, action: PayloadAction<string>) => {
-      const item = state.items.find((item) => item.id === action.payload)
+      const cartItem = state.items.find(
+        (cartItem) => cartItem.id === action.payload
+      )
 
-      if (item) {
-        if (item.quantity === 1) {
-          state.items = state.items.filter((item) => item.id !== action.payload)
+      if (cartItem) {
+        if (cartItem.quantity === 1) {
+          state.items = state.items.filter(
+            (cartItem) => cartItem.id !== action.payload
+          )
         } else {
-          item.quantity--
+          cartItem.quantity--
         }
       }
     },
     updateItemAttribute: (
       state,
       action: PayloadAction<{
-        itemId: string
-        selectedAttribute: ISelectedAttribute
+        cartItemId: string
+        selectedItemId: string
+        selectedAttributeSetId: string
       }>
     ) => {
-      const item = state.items.find((item) => item.id === action.payload.itemId)
+      const cartItem = state.items.find(
+        (cartItem) => cartItem.id === action.payload.cartItemId
+      )
 
-      if (item) {
-        item.selectedAttributes = item.selectedAttributes.map((attribute) =>
-          attribute.attributeSetId ===
-          action.payload.selectedAttribute.attributeSetId
-            ? action.payload.selectedAttribute
-            : attribute
+      if (cartItem) {
+        const selectedAttributeSet = cartItem.attributes.find(
+          (attribute) => attribute.id === action.payload.selectedAttributeSetId
+        )!
+
+        const selectedAttribute = selectedAttributeSet.items.find(
+          (attribute) => attribute.id === action.payload.selectedItemId
+        )!
+
+        const newAttribute: ISelectedAttribute = {
+          attributeSetId: action.payload.selectedAttributeSetId,
+          displayValue: selectedAttribute.displayValue,
+          id: selectedAttribute.id,
+          value: selectedAttribute.value,
+        }
+
+        cartItem.selectedAttributes = cartItem.selectedAttributes.map(
+          (attribute) =>
+            attribute.attributeSetId === action.payload.selectedAttributeSetId
+              ? newAttribute
+              : attribute
         )
       }
     },
   },
 })
 
-export const { addItemToCart, incrementItemQuantity, decrementItemQuantity } =
-  cartSlice.actions
+export const {
+  addItemToCart,
+  incrementItemQuantity,
+  decrementItemQuantity,
+  updateItemAttribute,
+} = cartSlice.actions
 
 export default cartSlice.reducer
 

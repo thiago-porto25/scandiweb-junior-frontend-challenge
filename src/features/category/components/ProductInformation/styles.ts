@@ -5,7 +5,11 @@ export const ProductInformationContainer = styled.div``
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
+
+  span {
+    display: block;
+    margin-top: 16px;
+  }
 `
 
 export const AttributeList = styled.ul`

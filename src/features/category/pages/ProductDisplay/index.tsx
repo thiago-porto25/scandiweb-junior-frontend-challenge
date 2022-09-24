@@ -45,6 +45,7 @@ class ProductDisplayPage extends React.Component<IProductDisplayPageProps> {
       <PageContainer>
         <ProductImagesDisplay
           name={displayProduct.name}
+          brand={displayProduct.brand}
           gallery={displayProduct.gallery}
         />
         <ProductInformation
