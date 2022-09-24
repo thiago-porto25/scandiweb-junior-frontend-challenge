@@ -4,11 +4,13 @@ import { theme } from '../../../styles/theme'
 interface ITypographyProps {
   textStyle: keyof typeof theme.textStyles
   fontWeight?: CSSProperties['fontWeight']
+  textAlign?: CSSProperties['textAlign']
 }
 
 export const Typography = styled.p<ITypographyProps>`
-  ${({ theme, textStyle, fontWeight }) => css`
+  ${({ theme, textStyle, fontWeight, textAlign }) => css`
     ${theme.textStyles[textStyle]}
     font-weight: ${fontWeight};
+    text-align: ${textAlign};
   `}
 `

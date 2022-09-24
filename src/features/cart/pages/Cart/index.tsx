@@ -40,14 +40,20 @@ class CartPage extends React.Component<ICartProps> {
 
     return (
       <CartPageContainer>
+        <Typography textStyle='cartHeading' as='h1'>
+          CART
+        </Typography>
+
         {isCartEmpty ? (
-          <TotalGridItem>Empty cart</TotalGridItem>
+          <Typography
+            textStyle='productTitleRegular'
+            textAlign='center'
+            as='h1'
+          >
+            Your Bag is empty
+          </Typography>
         ) : (
           <>
-            <Typography textStyle='cartHeading' as='h1'>
-              CART
-            </Typography>
-
             <ItemsList>
               {this.props.cartItems.map((item, i) => (
                 <li key={`${item.id}-${i}`}>

@@ -1,36 +1,46 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const CartItemContainer = styled.div`
-  /* TODO: Add small variant for spacing */
-  display: flex;
-  justify-content: space-between;
-  margin: 24px 0;
+interface ICommonProps {
+  isSmall?: boolean
+}
 
-  h2 > span {
-    display: block;
-    margin-top: 16px;
-    margin-bottom: 20px;
-  }
+export const CartItemContainer = styled.div<ICommonProps>`
+  ${({ isSmall }) => css`
+    display: flex;
+    justify-content: space-between;
+    column-gap: ${isSmall ? '20px' : '0'};
+    margin: ${isSmall ? '0' : '24px'} 0;
+    margin-bottom: ${isSmall ? '40px' : '24px'};
+
+    h2 > span {
+      display: block;
+      margin-top: ${isSmall ? '0' : '16px'};
+      margin-bottom: ${isSmall ? '4px' : '20px'};
+    }
+  `}
 `
 
 export const LeftContainer = styled.div``
 
-export const RightContainer = styled.div`
-  display: flex;
-  column-gap: 24px;
+export const RightContainer = styled.div<ICommonProps>`
+  ${({ isSmall }) => css`
+    display: flex;
+    column-gap: ${isSmall ? '8px' : '24px'};
+  `}
 `
 
-export const AttributeList = styled.ul`
-  /* TODO: Add small variant for spacing */
-  margin-top: 20px;
+export const AttributeList = styled.ul<ICommonProps>`
+  ${({ isSmall }) => css`
+    margin-top: ${isSmall ? '8px' : '20px'};
 
-  > li {
-    margin-bottom: 16px;
+    > li {
+      margin-bottom: ${isSmall ? '8px' : '16px'};
 
-    :last-child {
-      margin-bottom: 0;
+      :last-child {
+        margin-bottom: 0;
+      }
     }
-  }
+  `}
 `
 
 export const QuantityContainer = styled.div`
@@ -41,42 +51,45 @@ export const QuantityContainer = styled.div`
   align-items: center;
 `
 
-export const ButtonContainer = styled.div`
-  /* TODO: Add small variant */
-  width: 45px;
-  height: 45px;
+export const ButtonContainer = styled.div<ICommonProps>`
+  ${({ isSmall }) => css`
+    width: ${isSmall ? '24px' : '45px'};
+    height: ${isSmall ? '24px' : '45px'};
+  `}
 `
 
-export const Plus = styled.div`
-  /* TODO: Add small variant */
-  height: 100%;
-  width: 100%;
+export const Plus = styled.div<ICommonProps>`
+  ${({ isSmall }) => css`
+    height: 100%;
+    width: 100%;
 
-  ::after,
-  ::before {
-    content: '';
-    position: absolute;
-    top: 22px;
-    left: 15px;
-    width: 15px;
-    height: 1px;
-    background-color: ${({ theme }) => theme.colors.neutral.dark};
-  }
+    ::after,
+    ::before {
+      content: '';
+      position: absolute;
+      top: ${isSmall ? '11px' : '21px'};
+      left: ${isSmall ? '7px' : '14px'};
+      width: ${isSmall ? '8px' : '15px'};
+      height: 1px;
+      background-color: ${({ theme }) => theme.colors.neutral.dark};
+    }
 
-  ::before {
-    transform: rotate(90deg);
-  }
+    ::before {
+      transform: rotate(90deg);
+    }
+  `}
 `
 
-export const Minus = styled.div`
-  /* TODO: Add small variant */
-  ::before {
-    content: '';
-    position: absolute;
-    top: 22px;
-    left: 15px;
-    width: 15px;
-    height: 1px;
-    background-color: ${({ theme }) => theme.colors.neutral.dark};
-  }
+export const Minus = styled.div<ICommonProps>`
+  ${({ isSmall }) => css`
+    ::before {
+      content: '';
+      position: absolute;
+      top: ${isSmall ? '11px' : '21px'};
+      left: ${isSmall ? '7px' : '14px'};
+      width: ${isSmall ? '8px' : '15px'};
+      height: 1px;
+      background-color: ${({ theme }) => theme.colors.neutral.dark};
+    }
+  `}
 `

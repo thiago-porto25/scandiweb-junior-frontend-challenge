@@ -58,25 +58,29 @@ class CartItem extends React.Component<ICartItemProps> {
   }
 
   render(): React.ReactNode {
-    const { item, currentCurrency } = this.props
-
-    /* TODO: Add small variant for typographies */
+    const { item, currentCurrency, isSmall } = this.props
 
     return (
-      <CartItemContainer>
+      <CartItemContainer isSmall={isSmall}>
         <LeftContainer>
-          <Typography textStyle='brandName' as='h2'>
+          <Typography
+            textStyle={isSmall ? 'productTitleSmall' : 'brandName'}
+            as='h2'
+          >
             {item.brand} <br />
-            <Typography textStyle='productTitleLarge' as='span'>
+            <Typography
+              textStyle={isSmall ? 'productTitleSmall' : 'productTitleLarge'}
+              as='span'
+            >
               {item.name}
             </Typography>
           </Typography>
 
-          <Typography textStyle='priceLarge' as='p'>
+          <Typography textStyle={isSmall ? 'priceSmall' : 'priceLarge'} as='p'>
             {priceInCurrentCurrency(item.prices, currentCurrency)}
           </Typography>
 
-          <AttributeList>
+          <AttributeList isSmall={isSmall}>
             {item.attributes.map((attribute) => (
               <li key={attribute.id}>
                 <AttributeItemsList
@@ -88,25 +92,28 @@ class CartItem extends React.Component<ICartItemProps> {
                     )?.id || ''
                   }
                   onSelect={this.handleAttributeSelect}
+                  isSmall={isSmall}
                 />
               </li>
             ))}
           </AttributeList>
         </LeftContainer>
 
-        <RightContainer>
+        <RightContainer isSmall={isSmall}>
           <QuantityContainer>
-            <ButtonContainer>
+            <ButtonContainer isSmall={isSmall}>
               <Button onClick={this.handleIncrement} variant='secondary'>
-                <Plus />
+                <Plus isSmall={isSmall} />
               </Button>
             </ButtonContainer>
 
-            <Typography textStyle='quantityRegular'>{item.quantity}</Typography>
+            <Typography textStyle={isSmall ? 'priceSmall' : 'quantityRegular'}>
+              {item.quantity}
+            </Typography>
 
-            <ButtonContainer>
+            <ButtonContainer isSmall={isSmall}>
               <Button onClick={this.handleDecrement} variant='secondary'>
-                <Minus />
+                <Minus isSmall={isSmall} />
               </Button>
             </ButtonContainer>
           </QuantityContainer>
@@ -115,6 +122,7 @@ class CartItem extends React.Component<ICartItemProps> {
             gallery={item.gallery}
             brand={item.brand}
             name={item.name}
+            isSmall={isSmall}
           />
         </RightContainer>
       </CartItemContainer>

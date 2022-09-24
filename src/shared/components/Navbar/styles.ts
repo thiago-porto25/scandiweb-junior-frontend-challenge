@@ -10,7 +10,7 @@ export const NavbarContainer = styled.div`
     flex: 1;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 620px) {
     flex-direction: column-reverse;
     height: auto;
   }
@@ -21,8 +21,10 @@ export const IconsContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   column-gap: 22px;
+  margin-right: 24px;
 
-  @media (max-width: 600px) {
+  @media (max-width: 620px) {
     margin-top: 16px;
+    margin-right: 0;
   }
 `

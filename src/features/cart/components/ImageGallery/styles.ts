@@ -1,15 +1,21 @@
 import styled, { css } from 'styled-components'
 
-export const ImageGalleryContainer = styled.div`
-  position: relative;
-  width: 200px;
-  height: 288px;
+interface IImageGalleryContainerProps {
+  isSmall?: boolean
+}
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+export const ImageGalleryContainer = styled.div<IImageGalleryContainerProps>`
+  ${({ isSmall }) => css`
+    position: relative;
+    width: ${isSmall ? '121px' : '200px'};
+    height: ${isSmall ? '190px' : '288px'};
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  `}
 `
 
 export const GalleryButtonsContainer = styled.div`

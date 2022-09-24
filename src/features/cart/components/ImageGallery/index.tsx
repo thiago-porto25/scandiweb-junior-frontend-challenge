@@ -10,6 +10,7 @@ interface IImageGalleryProps {
   gallery: string[]
   brand: string
   name: string
+  isSmall?: boolean
 }
 
 interface IImageGalleryState {
@@ -43,14 +44,14 @@ class ImageGallery extends React.Component<
   }
 
   render(): React.ReactNode {
-    const { gallery, name, brand } = this.props
+    const { gallery, name, brand, isSmall } = this.props
     const { selectedImage } = this.state
 
     return (
-      <ImageGalleryContainer>
+      <ImageGalleryContainer isSmall={isSmall}>
         <img src={gallery[selectedImage]} alt={`${brand} ${name}`} />
 
-        {gallery.length > 1 && (
+        {gallery.length > 1 && !isSmall && (
           <GalleryButtonsContainer>
             <GalleryButton onClick={this.handlePreviousImage}>
               &lt;

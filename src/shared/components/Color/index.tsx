@@ -18,7 +18,7 @@ export const Color = styled.button.attrs(({ selected }: IColorProps) => ({
     height: ${small ? '20px' : '36px'};
     padding: 1px;
     background-color: transparent;
-    border: 1px solid transparent;
+    border: 1px solid ${theme.colors.neutral.highlight};
     cursor: pointer;
     transition: opacity 130ms ease;
 
