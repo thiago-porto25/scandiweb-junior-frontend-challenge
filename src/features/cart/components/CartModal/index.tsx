@@ -1,7 +1,8 @@
 import type { ConnectedProps } from 'react-redux'
+import type { RouteComponentProps } from 'react-router-dom'
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 import type { AppDispatch, RootState } from '../../../../shared/types'
 import { Button, Modal, Typography } from '../../../../shared/components'
@@ -24,7 +25,7 @@ import {
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-interface ICartModalProps extends PropsFromRedux {
+interface ICartModalProps extends PropsFromRedux, RouteComponentProps {
   dispatch: AppDispatch
 }
 
@@ -59,6 +60,7 @@ class CartModal extends React.Component<ICartModalProps, ICartModalState> {
   }
 
   close = (): void => {
+    this.props.history.push('/cart')
     this.setState({ isOpen: false })
   }
 
@@ -130,11 +132,10 @@ class CartModal extends React.Component<ICartModalProps, ICartModalState> {
                 </TotalContainer>
 
                 <ButtonsContainer>
-                  <Link to='/cart'>
-                    <Button variant='secondary' onClick={this.close}>
-                      View Bag
-                    </Button>
-                  </Link>
+                  <Button variant='secondary' onClick={this.close}>
+                    View Bag
+                  </Button>
+
                   <Button variant='primary' onClick={this.handleOrder}>
                     Check Out
                   </Button>
@@ -156,4 +157,4 @@ const mapStateToProps = (state: RootState) => ({
 })
 const connector = connect(mapStateToProps)
 
-export default connector(CartModal)
+export default withRouter(connector(CartModal))

@@ -12,6 +12,14 @@ export const CartItemContainer = styled.div<ICommonProps>`
     margin: ${isSmall ? '0' : '24px'} 0;
     margin-bottom: ${isSmall ? '40px' : '24px'};
 
+    ${!isSmall &&
+    css`
+      @media (max-width: 620px) {
+        flex-direction: column-reverse;
+        row-gap: 20px;
+      }
+    `}
+
     h2 > span {
       display: block;
       margin-top: ${isSmall ? '0' : '16px'};
@@ -43,12 +51,21 @@ export const AttributeList = styled.ul<ICommonProps>`
   `}
 `
 
-export const QuantityContainer = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+export const QuantityContainer = styled.div<ICommonProps>`
+  ${({ isSmall }) => css`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    ${!isSmall &&
+    css`
+      @media (max-width: 620px) {
+        height: auto;
+      }
+    `}
+  `}
 `
 
 export const ButtonContainer = styled.div<ICommonProps>`

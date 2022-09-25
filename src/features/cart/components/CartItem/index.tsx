@@ -100,7 +100,7 @@ class CartItem extends React.Component<ICartItemProps> {
         </LeftContainer>
 
         <RightContainer isSmall={isSmall}>
-          <QuantityContainer>
+          <QuantityContainer isSmall={isSmall}>
             <ButtonContainer isSmall={isSmall}>
               <Button onClick={this.handleIncrement} variant='secondary'>
                 <Plus isSmall={isSmall} />

@@ -18,8 +18,6 @@ class AttributeItemsList extends React.Component<IAttributeItemsListProps> {
   render() {
     const { attribute, selectedId, onSelect, isSmall } = this.props
 
-    /* TODO: Add small variant for typographies */
-
     return (
       <AttributeItemsListContainer>
         <Typography

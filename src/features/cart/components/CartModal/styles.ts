@@ -25,7 +25,7 @@ export const CartModalContentContainer = styled.div`
     overflow-y: auto;
     position: absolute;
     background-color: ${theme.colors.neutral.light};
-    width: 325px;
+    width: 332px;
     padding: 32px 16px;
     right: 15%;
     ${applyCustomScrollbar(theme)}
@@ -65,10 +65,4 @@ export const ButtonsContainer = styled.div`
   height: 43px;
   display: flex;
   column-gap: 12px;
-
-  a {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
 `
