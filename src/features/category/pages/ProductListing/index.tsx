@@ -39,18 +39,20 @@ class ProductListingPage extends React.Component<
     this.fetchProducts()
   }
 
-  componentDidUpdate(prevProps: Readonly<IProductListingPageProps>): void {
-    if (!this.state.hasFetched) {
-      this.fetchProducts()
-      this.setState({ hasFetched: true })
-    }
+  componentDidUpdate(): void {
+    this.fetchProducts()
   }
 
   fetchProducts = (): void => {
     const currentCategoryName = this.props.currentCategoryName
 
-    if (currentCategoryName) {
-      this.props.dispatch(getCategoryProductsThunk(currentCategoryName))
+    if (
+      currentCategoryName &&
+      !this.state.hasFetched &&
+      !this.props.currentCategoryProductList
+    ) {
+      this.setState({ hasFetched: true })
+      this.props.dispatch(getCategoryProductsThunk('all'))
     }
   }
 

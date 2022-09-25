@@ -44,8 +44,8 @@ export const CategorySlice = createSlice({
       getCategoriesThunk.fulfilled,
       (state, action: PayloadAction<GetAllCategoriesResponse[]>) => {
         state.categoryList = action.payload
-        state.currentCategory = action.payload[0]
         state.status = 'succeeded'
+        if (!state.currentCategory) state.currentCategory = action.payload[0]
       }
     )
 

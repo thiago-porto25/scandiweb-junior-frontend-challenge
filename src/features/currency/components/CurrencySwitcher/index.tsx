@@ -40,7 +40,7 @@ class CurrencySwitcher extends React.Component<
   }
 
   componentDidMount(): void {
-    this.props.dispatch(getCurrenciesThunk())
+    if (!this.props.currencyList) this.props.dispatch(getCurrenciesThunk())
     document.addEventListener('click', this.closeCurrencyList)
   }
 

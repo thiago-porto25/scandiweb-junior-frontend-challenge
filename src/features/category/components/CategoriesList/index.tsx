@@ -17,13 +17,13 @@ import { List, Nav } from './styles'
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-interface ICategorySwitcherProps extends PropsFromRedux {
+interface ICategoriesListProps extends PropsFromRedux {
   dispatch: AppDispatch
 }
 
-class CategorySwitcher extends React.Component<ICategorySwitcherProps> {
+class CategoriesList extends React.Component<ICategoriesListProps> {
   componentDidMount(): void {
-    this.props.dispatch(getCategoriesThunk())
+    if (!this.props.categoryList) this.props.dispatch(getCategoriesThunk())
   }
 
   changeSelectedCategory = (category: GetAllCategoriesResponse): void => {
@@ -66,4 +66,4 @@ const mapStateToProps = (state: RootState) => ({
 })
 const connector = connect(mapStateToProps)
 
-export default connector(CategorySwitcher)
+export default connector(CategoriesList)
