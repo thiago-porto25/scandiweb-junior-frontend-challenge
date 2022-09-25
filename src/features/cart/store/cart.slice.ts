@@ -97,13 +97,13 @@ export const cartSlice = createSlice({
         const itemWithSameSelectedAttributes = state.items.find(
           (item) =>
             cartItem.id === item.id &&
-            isEqual(cartItem.selectedAttributes, newSelectedAttributes)
+            isEqual(item.selectedAttributes, newSelectedAttributes)
         )
 
         if (itemWithSameSelectedAttributes) {
           itemWithSameSelectedAttributes.quantity += cartItem.quantity
           state.items = state.items.filter(
-            (cartItem) => cartItem.cartItemId !== action.payload.cartItemId
+            (item) => item.cartItemId !== action.payload.cartItemId
           )
         } else {
           cartItem.selectedAttributes = newSelectedAttributes
