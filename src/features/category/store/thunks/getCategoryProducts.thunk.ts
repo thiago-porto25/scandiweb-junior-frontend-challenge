@@ -9,7 +9,7 @@ export const getCategoryProductsThunk = createAsyncThunk(
   async (name: string) => {
     try {
       const { category } = await CategoryService.getCategoryProducts(name)
-      console.log(category.products)
+
       return Promise.resolve(category.products as IProduct[])
     } catch (error) {
       return Promise.reject(error)

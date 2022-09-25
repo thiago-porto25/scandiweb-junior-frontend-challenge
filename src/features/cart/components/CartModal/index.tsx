@@ -1,6 +1,7 @@
 import type { ConnectedProps } from 'react-redux'
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import type { AppDispatch, RootState } from '../../../../shared/types'
 import { Button, Modal, Typography } from '../../../../shared/components'
@@ -20,8 +21,6 @@ import {
   TotalContainer,
   ButtonsContainer,
 } from './styles'
-import { selectCurrentCurrency } from '../../../currency/store/selectors'
-import { Link } from 'react-router-dom'
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
@@ -74,13 +73,7 @@ class CartModal extends React.Component<ICartModalProps, ICartModalState> {
 
   render(): React.ReactNode {
     const { isOpen, isMobile } = this.state
-    const {
-      cartItems,
-      totalPrice,
-      totalQuantity,
-      isCartEmpty,
-      currentCurrency,
-    } = this.props
+    const { cartItems, totalPrice, totalQuantity, isCartEmpty } = this.props
 
     return (
       <>
@@ -132,7 +125,7 @@ class CartModal extends React.Component<ICartModalProps, ICartModalState> {
                     Total
                   </Typography>
                   <Typography textStyle='priceSmall' fontWeight={700} as='h4'>
-                    {currentCurrency!.symbol + totalPrice.toFixed(2)}
+                    {totalPrice.formattedAmount}
                   </Typography>
                 </TotalContainer>
 
@@ -160,7 +153,6 @@ const mapStateToProps = (state: RootState) => ({
   cartItems: selectCartItems(state),
   totalQuantity: selectCartTotalQuantity(state),
   totalPrice: selectCartTotalPrice(state),
-  currentCurrency: selectCurrentCurrency(state),
 })
 const connector = connect(mapStateToProps)
 

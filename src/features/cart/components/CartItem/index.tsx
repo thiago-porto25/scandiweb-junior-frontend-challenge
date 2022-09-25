@@ -107,7 +107,10 @@ class CartItem extends React.Component<ICartItemProps> {
               </Button>
             </ButtonContainer>
 
-            <Typography textStyle={isSmall ? 'priceSmall' : 'quantityRegular'}>
+            <Typography
+              textStyle={isSmall ? 'priceSmall' : 'priceLarge'}
+              fontWeight={500}
+            >
               {item.quantity}
             </Typography>
 

@@ -11,11 +11,16 @@ export const selectCartTotalQuantity = (state: RootState) =>
 export const selectCartTotalPrice = (state: RootState) => {
   const currentCurrency = state.currency.currentCurrency
 
-  return state.cart.items.reduce((acc, item) => {
+  const total = state.cart.items.reduce((acc, item) => {
     const currentCurrencyIndex = item.prices.findIndex(
       (price) => price.currency.label === currentCurrency?.label
     )
 
     return acc + item.quantity * item.prices[currentCurrencyIndex].amount
   }, 0)
+
+  return {
+    taxAmount: currentCurrency!.symbol + (total * 0.21).toFixed(2),
+    formattedAmount: currentCurrency?.symbol + total.toFixed(2),
+  }
 }

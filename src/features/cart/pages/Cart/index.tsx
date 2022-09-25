@@ -5,8 +5,6 @@ import { connect } from 'react-redux'
 import type { AppDispatch, RootState } from '../../../../shared/types'
 import { Button, Typography } from '../../../../shared/components'
 
-import { selectCurrentCurrency } from '../../../currency/store/selectors'
-
 import {
   selectCartItems,
   selectCartTotalPrice,
@@ -35,8 +33,7 @@ class CartPage extends React.Component<ICartProps> {
   }
 
   render(): React.ReactNode {
-    const { totalPrice, currentCurrency, isCartEmpty, totalQuantity } =
-      this.props
+    const { totalPrice, isCartEmpty, totalQuantity } = this.props
 
     return (
       <CartPageContainer>
@@ -71,7 +68,7 @@ class CartPage extends React.Component<ICartProps> {
                 </Typography>
 
                 <Typography textStyle='priceLarge' as='p'>
-                  {currentCurrency!.symbol + (totalPrice * 0.21).toFixed(2)}
+                  {totalPrice.taxAmount}
                 </Typography>
               </TotalGridItem>
 
@@ -91,7 +88,7 @@ class CartPage extends React.Component<ICartProps> {
                 </Typography>
 
                 <Typography textStyle='priceLarge' as='p'>
-                  {currentCurrency!.symbol + totalPrice}
+                  {totalPrice.formattedAmount}
                 </Typography>
               </TotalGridItem>
 
@@ -111,7 +108,6 @@ const mapStateToProps = (state: RootState) => ({
   cartItems: selectCartItems(state),
   totalQuantity: selectCartTotalQuantity(state),
   totalPrice: selectCartTotalPrice(state),
-  currentCurrency: selectCurrentCurrency(state),
 })
 const connector = connect(mapStateToProps)
 

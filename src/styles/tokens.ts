@@ -31,6 +31,7 @@ export const boxShadow = {
 
 export const borderRadius = {
   round: '50%',
+  container: '20px',
 }
 
 export const colors = {
