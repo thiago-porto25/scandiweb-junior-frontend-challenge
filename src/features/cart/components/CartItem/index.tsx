@@ -42,7 +42,7 @@ class CartItem extends React.Component<ICartItemProps> {
   handleAttributeSelect = (attributeId: string, itemId: string): void => {
     this.props.dispatch(
       updateItemAttribute({
-        cartItemId: this.props.item.id,
+        cartItemId: this.props.item.cartItemId,
         selectedItemId: itemId,
         selectedAttributeSetId: attributeId,
       })
@@ -50,11 +50,11 @@ class CartItem extends React.Component<ICartItemProps> {
   }
 
   handleIncrement = (): void => {
-    this.props.dispatch(incrementItemQuantity(this.props.item.id))
+    this.props.dispatch(incrementItemQuantity(this.props.item.cartItemId))
   }
 
   handleDecrement = (): void => {
-    this.props.dispatch(decrementItemQuantity(this.props.item.id))
+    this.props.dispatch(decrementItemQuantity(this.props.item.cartItemId))
   }
 
   render(): React.ReactNode {

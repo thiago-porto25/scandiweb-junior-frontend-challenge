@@ -1,5 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import { v4 as uuid } from 'uuid'
+import { isEqual } from 'lodash'
 import storage from 'redux-persist/lib/storage'
 
 import type { ICartState, ICartItem, ISelectedAttribute } from '../types'
@@ -12,33 +14,44 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addItemToCart: (state, action: PayloadAction<ICartItem>) => {
+    addItemToCart: (
+      state,
+      action: PayloadAction<Omit<ICartItem, 'cartItemId'>>
+    ) => {
       const cartItemIndex = state.items.findIndex(
-        (cartItem) => cartItem.id === action.payload.id
+        (cartItem) =>
+          cartItem.id === action.payload.id &&
+          isEqual(
+            cartItem.selectedAttributes,
+            action.payload.selectedAttributes
+          )
       )
 
       if (cartItemIndex === -1) {
-        state.items.push(action.payload)
+        state.items.push({
+          ...action.payload,
+          cartItemId: uuid(),
+        })
       } else {
         state.items[cartItemIndex].quantity += action.payload.quantity
       }
     },
     incrementItemQuantity: (state, action: PayloadAction<string>) => {
       const cartItem = state.items.find(
-        (cartItem) => cartItem.id === action.payload
+        (cartItem) => cartItem.cartItemId === action.payload
       )
 
       if (cartItem) cartItem.quantity++
     },
     decrementItemQuantity: (state, action: PayloadAction<string>) => {
       const cartItem = state.items.find(
-        (cartItem) => cartItem.id === action.payload
+        (cartItem) => cartItem.cartItemId === action.payload
       )
 
       if (cartItem) {
         if (cartItem.quantity === 1) {
           state.items = state.items.filter(
-            (cartItem) => cartItem.id !== action.payload
+            (cartItem) => cartItem.cartItemId !== action.payload
           )
         } else {
           cartItem.quantity--
@@ -54,12 +67,13 @@ export const cartSlice = createSlice({
       }>
     ) => {
       const cartItem = state.items.find(
-        (cartItem) => cartItem.id === action.payload.cartItemId
+        (cartItem) => cartItem.cartItemId === action.payload.cartItemId
       )
 
       if (cartItem) {
         const selectedAttributeSet = cartItem.attributes.find(
-          (attribute) => attribute.id === action.payload.selectedAttributeSetId
+          (attributeSet) =>
+            attributeSet.id === action.payload.selectedAttributeSetId
         )!
 
         const selectedAttribute = selectedAttributeSet.items.find(
@@ -73,12 +87,27 @@ export const cartSlice = createSlice({
           value: selectedAttribute.value,
         }
 
-        cartItem.selectedAttributes = cartItem.selectedAttributes.map(
+        const newSelectedAttributes = cartItem.selectedAttributes.map(
           (attribute) =>
             attribute.attributeSetId === action.payload.selectedAttributeSetId
               ? newAttribute
               : attribute
         )
+
+        const itemWithSameSelectedAttributes = state.items.find(
+          (item) =>
+            cartItem.id === item.id &&
+            isEqual(cartItem.selectedAttributes, newSelectedAttributes)
+        )
+
+        if (itemWithSameSelectedAttributes) {
+          itemWithSameSelectedAttributes.quantity += cartItem.quantity
+          state.items = state.items.filter(
+            (cartItem) => cartItem.cartItemId !== action.payload.cartItemId
+          )
+        } else {
+          cartItem.selectedAttributes = newSelectedAttributes
+        }
       }
     },
   },

@@ -7,6 +7,11 @@ export const ProductImagesDisplayContainer = styled.div`
 `
 
 export const ImagesList = styled.ul`
+  @media (max-width: 450px) {
+    overflow-y: auto;
+    max-height: 400px;
+  }
+
   li {
     margin-bottom: 32px;
 
