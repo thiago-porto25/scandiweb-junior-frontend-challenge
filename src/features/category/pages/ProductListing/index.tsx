@@ -23,16 +23,27 @@ interface IProductListingPageProps extends PropsFromRedux {
   dispatch: AppDispatch
 }
 
-class ProductListingPage extends React.Component<IProductListingPageProps> {
+interface IProductListingPageState {
+  hasFetched: boolean
+}
+
+class ProductListingPage extends React.Component<
+  IProductListingPageProps,
+  IProductListingPageState
+> {
+  state = {
+    hasFetched: false,
+  }
+
   componentDidMount(): void {
     this.fetchProducts()
   }
 
   componentDidUpdate(prevProps: Readonly<IProductListingPageProps>): void {
-    const currentCategoryName = this.props.currentCategoryName
-
-    if (currentCategoryName !== prevProps.currentCategoryName)
+    if (!this.state.hasFetched) {
       this.fetchProducts()
+      this.setState({ hasFetched: true })
+    }
   }
 
   fetchProducts = (): void => {

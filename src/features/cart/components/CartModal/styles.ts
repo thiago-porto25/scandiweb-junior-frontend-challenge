@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components'
 
+import { applyCustomScrollbar } from '../../../../shared/helpers'
+
 export const QuantityBadge = styled.div`
   ${({ theme }) => css`
     position: absolute;
@@ -26,26 +28,7 @@ export const CartModalContentContainer = styled.div`
     width: 325px;
     padding: 32px 16px;
     right: 15%;
-    scrollbar-color: ${theme.colors.neutral.highlight}
-      ${theme.colors.neutral.light};
-
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      box-shadow: inset 0 0 0;
-      border-radius: ${theme.borderRadius.container};
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: ${theme.colors.neutral.highlight};
-      border-radius: ${theme.borderRadius.container};
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: ${theme.colors.neutral.dark}22;
-    }
+    ${applyCustomScrollbar(theme)}
 
     @media (max-width: 1600px) {
       right: 10%;
