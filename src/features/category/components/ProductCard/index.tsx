@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import type { AppDispatch, IProduct } from '../../../../shared/types'
-import { Button, Typography } from '../../../../shared/components'
+import { Button, Typography, Toast } from '../../../../shared/components'
 import { CartIcon } from '../../../../shared/svg'
 
 import type { ICurrency } from '../../../currency/types'
@@ -24,8 +24,21 @@ interface IProductCardProps {
   dispatch: AppDispatch
 }
 
-class ProductCard extends React.Component<IProductCardProps> {
+interface IProductCardState {
+  isToastOpen: boolean
+}
+
+class ProductCard extends React.Component<
+  IProductCardProps,
+  IProductCardState
+> {
+  state = {
+    isToastOpen: false,
+  }
+
   handleAddToCart = (): void => {
+    this.setState({ isToastOpen: true })
+
     const selectedAttributes: ISelectedAttribute[] =
       this.props.product.attributes.map((attribute) => ({
         attributeSetId: attribute.id,
@@ -45,6 +58,7 @@ class ProductCard extends React.Component<IProductCardProps> {
 
   render(): React.ReactNode {
     const { product, currentCurrency } = this.props
+    const { isToastOpen } = this.state
 
     return (
       <ProductCardContainer isOutOfStock={!product.inStock}>
@@ -69,6 +83,13 @@ class ProductCard extends React.Component<IProductCardProps> {
             </Typography>
           </ProductCardInfoContainer>
         </Link>
+
+        <Toast
+          text='Item added to bag!'
+          duration={3000}
+          isOpen={isToastOpen}
+          close={() => this.setState({ isToastOpen: false })}
+        />
       </ProductCardContainer>
     )
   }

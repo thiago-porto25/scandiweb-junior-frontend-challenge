@@ -6,6 +6,7 @@ import type { AppDispatch, IProduct } from '../../../../shared/types'
 import {
   AttributeItemsList,
   Button,
+  Toast,
   Typography,
 } from '../../../../shared/components'
 
@@ -34,6 +35,7 @@ interface IProductInformationProps {
 
 interface IProductInformationState {
   selectedAttributes: ISelectedInfo[]
+  isToastOpen: boolean
 }
 
 class ProductInformation extends React.Component<
@@ -42,6 +44,7 @@ class ProductInformation extends React.Component<
 > {
   state = {
     selectedAttributes: [] as ISelectedInfo[],
+    isToastOpen: false,
   }
 
   componentDidMount(): void {
@@ -72,6 +75,7 @@ class ProductInformation extends React.Component<
   }
 
   handleAddToCart = () => {
+    this.setState({ isToastOpen: true })
     this.props.dispatch(
       addItemToCart({
         ...this.props.product,
@@ -87,6 +91,8 @@ class ProductInformation extends React.Component<
 
   render(): React.ReactNode {
     const { product, currentCurrency } = this.props
+    const { isToastOpen, selectedAttributes } = this.state
+
     return (
       <ProductInformationContainer>
         <TitleContainer>
@@ -104,7 +110,7 @@ class ProductInformation extends React.Component<
               <AttributeItemsList
                 attribute={attribute}
                 selectedId={
-                  this.state.selectedAttributes.find(
+                  selectedAttributes.find(
                     (selectedAttribute) =>
                       selectedAttribute?.id === attribute.id
                   )?.selectedId || ''
@@ -134,6 +140,13 @@ class ProductInformation extends React.Component<
         </ButtonContainer>
 
         {htmlParser(product.description)}
+
+        <Toast
+          text='Item added to bag!'
+          duration={3000}
+          isOpen={isToastOpen}
+          close={() => this.setState({ isToastOpen: false })}
+        />
       </ProductInformationContainer>
     )
   }

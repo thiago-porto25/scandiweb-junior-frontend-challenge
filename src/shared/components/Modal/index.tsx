@@ -4,6 +4,19 @@ import Portal from '../Portal'
 
 import { ModalOverlay } from './styles'
 
+interface IModalProps {
+  children: React.ReactNode
+  isOpen: boolean
+  close: () => void
+  onClose?: () => void
+  overlayTopMargin: number
+}
+
+interface IModalContent {
+  children: React.ReactNode
+  closeModal: () => void
+}
+
 class Modal extends React.Component<IModalProps> {
   closeModal = (): void => {
     if (this.props.onClose) this.props.onClose()
@@ -52,17 +65,4 @@ class ModalContent extends React.Component<IModalContent> {
     /* eslint-disable-next-line jsx-a11y/no-static-element-interactions*/
     return <div onMouseDown={this.handleParentClick}>{children}</div>
   }
-}
-
-interface IModalProps {
-  children: React.ReactNode
-  isOpen: boolean
-  close: () => void
-  onClose?: () => void
-  overlayTopMargin: number
-}
-
-interface IModalContent {
-  children: React.ReactNode
-  closeModal: () => void
 }

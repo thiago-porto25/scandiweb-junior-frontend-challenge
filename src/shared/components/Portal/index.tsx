@@ -15,7 +15,7 @@ class Portal extends React.Component<IPortalProps> {
     portal.style.top = '0'
     portal.style.right = '0'
     portal.style.bottom = '0'
-    portal.id = 'cart-portal'
+    portal.id = 'app-portal'
 
     return portal
   })()
