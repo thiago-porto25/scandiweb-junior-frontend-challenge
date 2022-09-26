@@ -26,7 +26,6 @@ import {
 import {
   decrementItemQuantity,
   incrementItemQuantity,
-  updateItemAttribute,
 } from '../../store/cart.slice'
 import ImageGallery from '../ImageGallery'
 
@@ -39,16 +38,6 @@ interface ICartItemProps extends PropsFromRedux {
 }
 
 class CartItem extends React.Component<ICartItemProps> {
-  handleAttributeSelect = (attributeId: string, itemId: string): void => {
-    this.props.dispatch(
-      updateItemAttribute({
-        cartItemId: this.props.item.cartItemId,
-        selectedItemId: itemId,
-        selectedAttributeSetId: attributeId,
-      })
-    )
-  }
-
   handleIncrement = (): void => {
     this.props.dispatch(incrementItemQuantity(this.props.item.cartItemId))
   }
@@ -91,7 +80,6 @@ class CartItem extends React.Component<ICartItemProps> {
                         selectedAttribute.attributeSetId === attribute.id
                     )?.id || ''
                   }
-                  onSelect={this.handleAttributeSelect}
                   isSmall={isSmall}
                 />
               </li>

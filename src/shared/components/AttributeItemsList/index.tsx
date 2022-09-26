@@ -10,7 +10,7 @@ import { AttributeItemsListContainer, List, ButtonContainer } from './styles'
 interface IAttributeItemsListProps {
   attribute: IAttributeSet
   selectedId: string
-  onSelect: (attributeId: string, itemId: string) => void
+  onSelect?: (attributeId: string, itemId: string) => void
   isSmall?: boolean
 }
 
@@ -26,14 +26,16 @@ class AttributeItemsList extends React.Component<IAttributeItemsListProps> {
           {attribute.name}:
         </Typography>
 
-        <List isSmall={isSmall}>
+        <List isSmall={isSmall} readOnly={!onSelect}>
           {attribute.items.map((item) => (
             <li key={item.id}>
               {attribute.type === 'swatch' ? (
                 <Color
                   colorValue={item.value}
                   selected={selectedId === item.id}
-                  onClick={() => onSelect(attribute.id, item.id)}
+                  onClick={() => {
+                    if (onSelect) onSelect(attribute.id, item.id)
+                  }}
                   small={isSmall}
                 />
               ) : (
@@ -41,7 +43,9 @@ class AttributeItemsList extends React.Component<IAttributeItemsListProps> {
                   <Button
                     variant='secondary'
                     selected={selectedId === item.id}
-                    onClick={() => onSelect(attribute.id, item.id)}
+                    onClick={() => {
+                      if (onSelect) onSelect(attribute.id, item.id)
+                    }}
                   >
                     <Typography
                       textStyle={

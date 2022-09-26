@@ -2,17 +2,20 @@ import styled, { css } from 'styled-components'
 
 interface ICommonProps {
   isSmall?: boolean
+  readOnly?: boolean
 }
 
 export const AttributeItemsListContainer = styled.div``
 
 export const List = styled.ul<ICommonProps>`
-  ${({ isSmall }) => css`
+  ${({ isSmall, readOnly }) => css`
     display: flex;
     column-gap: ${isSmall ? '8px' : '12px'};
     row-gap: ${isSmall ? '8px' : '12px'};
     margin-top: 8px;
     flex-wrap: wrap;
+
+    pointer-events: ${readOnly ? 'none' : 'auto'};
   `}
 `
 
