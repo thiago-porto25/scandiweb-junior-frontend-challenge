@@ -9,7 +9,10 @@ import { LoadingLayout } from '../../../../shared/layouts'
 import { selectCurrentCurrency } from '../../../currency/store/selectors'
 
 import { resetDisplayProduct } from '../../store/category.slice'
-import { selectDisplayProduct } from '../../store/selectors'
+import {
+  selectDisplayProduct,
+  selectCategoryStatus,
+} from '../../store/selectors'
 import { getDisplayProductThunk } from '../../store/thunks'
 import { ProductImagesDisplay, ProductInformation } from '../../components'
 
@@ -27,18 +30,45 @@ interface IProductDisplayPageProps
   dispatch: AppDispatch
 }
 
-class ProductDisplayPage extends React.Component<IProductDisplayPageProps> {
+interface IProductDisplayPageState {
+  isRedirected: boolean
+}
+
+class ProductDisplayPage extends React.Component<
+  IProductDisplayPageProps,
+  IProductDisplayPageState
+> {
+  state = {
+    isRedirected: false,
+  }
+
   componentDidMount(): void {
     const id = this.props.match.params.id
 
     this.props.dispatch(getDisplayProductThunk(id))
   }
 
+  componentDidUpdate(): void {
+    this.redirectWrongCategory()
+  }
+
   componentWillUnmount(): void {
     this.props.dispatch(resetDisplayProduct())
   }
 
+  redirectWrongCategory = (): void => {
+    if (
+      !this.state.isRedirected &&
+      !this.props.displayProduct &&
+      this.props.status === 'succeeded'
+    ) {
+      this.setState({ isRedirected: true })
+      this.props.history.push('/')
+    }
+  }
+
   render(): React.ReactNode {
+    console.log('test')
     const { currentCurrency, displayProduct } = this.props
 
     return displayProduct ? (
@@ -62,6 +92,7 @@ class ProductDisplayPage extends React.Component<IProductDisplayPageProps> {
 const mapStateToProps = (state: RootState) => ({
   displayProduct: selectDisplayProduct(state),
   currentCurrency: selectCurrentCurrency(state),
+  status: selectCategoryStatus(state),
 })
 const connector = connect(mapStateToProps)
 

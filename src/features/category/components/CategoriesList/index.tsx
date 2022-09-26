@@ -1,5 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import {
+  Link,
+  RouteComponentProps,
+  withRouter,
+  matchPath,
+} from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
 
 import type { AppDispatch, RootState } from '../../../../shared/types'
@@ -17,13 +22,36 @@ import { List, Nav } from './styles'
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-interface ICategoriesListProps extends PropsFromRedux {
+interface IPathParams {
+  name: string | undefined
+}
+
+interface ICategoriesListProps
+  extends PropsFromRedux,
+    RouteComponentProps<IPathParams> {
   dispatch: AppDispatch
 }
 
 class CategoriesList extends React.Component<ICategoriesListProps> {
   componentDidMount(): void {
     if (!this.props.categoryList) this.props.dispatch(getCategoriesThunk())
+    this.initializeCategoryList()
+  }
+
+  initializeCategoryList(): void {
+    const match = matchPath<IPathParams>(this.props.history.location.pathname, {
+      path: '/category/:name',
+      exact: true,
+      strict: false,
+    })
+
+    if (match) {
+      const name = match.params.name
+
+      if (name) {
+        this.changeSelectedCategory({ name })
+      }
+    }
   }
 
   changeSelectedCategory = (category: GetAllCategoriesResponse): void => {
@@ -40,7 +68,11 @@ class CategoriesList extends React.Component<ICategoriesListProps> {
             {categoryList.map((category, i) => (
               <li key={`${category.name}-${i}`}>
                 <Link
-                  to='/'
+                  to={
+                    /all/i.test(category.name)
+                      ? '/'
+                      : `/category/${category.name}`
+                  }
                   onClick={() => {
                     this.changeSelectedCategory(category)
                   }}
@@ -66,4 +98,4 @@ const mapStateToProps = (state: RootState) => ({
 })
 const connector = connect(mapStateToProps)
 
-export default connector(CategoriesList)
+export default withRouter(connector(CategoriesList))

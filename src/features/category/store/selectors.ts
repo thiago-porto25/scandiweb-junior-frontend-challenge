@@ -21,3 +21,5 @@ export const selectCategoryIsError = (state: RootState) =>
 
 export const selectDisplayProduct = (state: RootState) =>
   state.category.displayProduct
+
+export const selectCategoryStatus = (state: RootState) => state.category.status

@@ -1,3 +1,4 @@
+import type { RouteComponentProps } from 'react-router-dom'
 import type { ConnectedProps } from 'react-redux'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -11,20 +12,23 @@ import { selectCurrentCurrency } from '../../../currency/store/selectors'
 import {
   selectCurrentCategoryProductList,
   selectCurrentCategoryName,
+  selectCategoryList,
 } from '../../store/selectors'
 import { getCategoryProductsThunk } from '../../store/thunks'
 import { ProductCard } from '../../components'
 
 import { HeadingContainer, ProductList } from './styles'
+import { changeCurrentCategory } from '../../store/category.slice'
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-interface IProductListingPageProps extends PropsFromRedux {
+interface IProductListingPageProps extends PropsFromRedux, RouteComponentProps {
   dispatch: AppDispatch
 }
 
 interface IProductListingPageState {
   hasFetched: boolean
+  isRedirected: boolean
 }
 
 class ProductListingPage extends React.Component<
@@ -33,6 +37,7 @@ class ProductListingPage extends React.Component<
 > {
   state = {
     hasFetched: false,
+    isRedirected: false,
   }
 
   componentDidMount(): void {
@@ -41,6 +46,21 @@ class ProductListingPage extends React.Component<
 
   componentDidUpdate(): void {
     this.fetchProducts()
+    this.redirectWrongCategory()
+  }
+
+  redirectWrongCategory = (): void => {
+    if (!this.state.isRedirected && this.props.categoryList?.length) {
+      const foundCategory = this.props.categoryList?.find((category) => {
+        return category.name === this.props.currentCategoryName
+      })
+
+      if (!foundCategory) {
+        this.setState({ isRedirected: true })
+        this.props.dispatch(changeCurrentCategory(this.props.categoryList[0]))
+        this.props.history.push('/')
+      }
+    }
   }
 
   fetchProducts = (): void => {
@@ -88,6 +108,7 @@ const mapStateToProps = (state: RootState) => ({
   currentCategoryName: selectCurrentCategoryName(state),
   currentCategoryProductList: selectCurrentCategoryProductList(state),
   currentCurrency: selectCurrentCurrency(state),
+  categoryList: selectCategoryList(state),
 })
 const connector = connect(mapStateToProps)
 

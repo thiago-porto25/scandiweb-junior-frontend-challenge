@@ -19,6 +19,7 @@ class App extends React.Component {
       <GlobalLayout>
         <Switch>
           <Route path='/product/:id' component={ProductDisplayPage} />
+          <Route path='/category/:name' component={ProductListingPage} />
           <Route path='/cart' component={CartPage} />
           <Route exact path='/' component={ProductListingPage} />
           <Route path='*'>
