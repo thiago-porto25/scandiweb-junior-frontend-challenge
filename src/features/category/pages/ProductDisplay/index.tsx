@@ -68,7 +68,6 @@ class ProductDisplayPage extends React.Component<
   }
 
   render(): React.ReactNode {
-    console.log('test')
     const { currentCurrency, displayProduct } = this.props
 
     return displayProduct ? (

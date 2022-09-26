@@ -43,6 +43,9 @@ class CartModal extends React.Component<ICartModalProps, ICartModalState> {
   componentDidMount(): void {
     this.handleResize()
     window.addEventListener('resize', this.handleResize)
+
+    const rootHtmlElement = document.querySelector('html') as HTMLElement
+    rootHtmlElement.style.overflowY = 'auto'
   }
 
   componentDidUpdate(
