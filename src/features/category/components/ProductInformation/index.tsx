@@ -135,7 +135,7 @@ class ProductInformation extends React.Component<
 
         <ButtonContainer>
           <Button onClick={this.handleAddToCart} disabled={!product.inStock}>
-            ADD TO CART
+            {product.inStock ? 'ADD TO CART' : 'OUT OF STOCK'}
           </Button>
         </ButtonContainer>
 

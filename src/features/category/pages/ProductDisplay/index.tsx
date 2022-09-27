@@ -11,7 +11,7 @@ import { selectCurrentCurrency } from '../../../currency/store/selectors'
 import { resetDisplayProduct } from '../../store/category.slice'
 import {
   selectDisplayProduct,
-  selectCategoryStatus,
+  selectGetDisplayProductStatus,
 } from '../../store/selectors'
 import { getDisplayProductThunk } from '../../store/thunks'
 import { ProductImagesDisplay, ProductInformation } from '../../components'
@@ -49,14 +49,13 @@ class ProductDisplayPage extends React.Component<
   }
 
   componentDidUpdate(): void {
-    this.redirectWrongCategory()
+    this.redirectWrongProduct()
   }
 
   componentWillUnmount(): void {
     this.props.dispatch(resetDisplayProduct())
   }
-
-  redirectWrongCategory = (): void => {
+  redirectWrongProduct = (): void => {
     if (
       !this.state.isRedirected &&
       !this.props.displayProduct &&
@@ -91,7 +90,7 @@ class ProductDisplayPage extends React.Component<
 const mapStateToProps = (state: RootState) => ({
   displayProduct: selectDisplayProduct(state),
   currentCurrency: selectCurrentCurrency(state),
-  status: selectCategoryStatus(state),
+  status: selectGetDisplayProductStatus(state),
 })
 const connector = connect(mapStateToProps)
 

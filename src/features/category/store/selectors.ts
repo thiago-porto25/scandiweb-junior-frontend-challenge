@@ -17,9 +17,18 @@ export const selectCurrentCategoryProductList = (state: RootState) => {
 }
 
 export const selectCategoryIsError = (state: RootState) =>
-  state.category.status === 'failed'
+  state.category.getCategoriesStatus === 'failed' ||
+  state.category.getDisplayProductStatus === 'failed' ||
+  state.category.getCategoryProductsStatus === 'failed'
 
 export const selectDisplayProduct = (state: RootState) =>
   state.category.displayProduct
 
-export const selectCategoryStatus = (state: RootState) => state.category.status
+export const selectGetCategoriesStatus = (state: RootState) =>
+  state.category.getCategoriesStatus
+
+export const selectGetDisplayProductStatus = (state: RootState) =>
+  state.category.getDisplayProductStatus
+
+export const selectGetCategoryProductsStatus = (state: RootState) =>
+  state.category.getCategoryProductsStatus

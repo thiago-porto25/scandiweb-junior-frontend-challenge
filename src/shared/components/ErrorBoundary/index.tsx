@@ -55,8 +55,7 @@ class ErrorBoundary extends React.Component<
           </Typography>
 
           <Typography textStyle='category' as='p'>
-            We have encountered an internal error and we are sorry for the
-            inconvenience.
+            We have encountered an error and we are sorry for the inconvenience.
           </Typography>
 
           <ButtonContainer>
