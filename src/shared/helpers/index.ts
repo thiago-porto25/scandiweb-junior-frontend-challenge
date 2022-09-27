@@ -1,0 +1,1 @@
+export { applyCustomScrollbar } from './applyCustomScrollbar'

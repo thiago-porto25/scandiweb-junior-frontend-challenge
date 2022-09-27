@@ -1,19 +1,38 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { Suspense } from 'react'
+import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { client } from '@tilework/opus'
+import { ThemeProvider } from 'styled-components'
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+import App from './App'
+import { store, persistor } from './store'
+
+import { theme } from './styles/theme'
+import { GlobalStyles } from './styles/GlobalStyles'
+
+import { LoadingLayout } from './shared/layouts/LoadingLayout'
+import { ErrorBoundary } from './shared/components'
+
+client.setEndpoint('http://localhost:4000')
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <PersistGate loading={<LoadingLayout />} persistor={persistor}>
+          <ErrorBoundary>
+            <Router>
+              <Suspense fallback={<LoadingLayout />}>
+                <App />
+              </Suspense>
+            </Router>
+          </ErrorBoundary>
+        </PersistGate>
+      </Provider>
+      <GlobalStyles />
+    </ThemeProvider>
   </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+)

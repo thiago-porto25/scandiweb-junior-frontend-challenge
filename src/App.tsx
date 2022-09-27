@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { GlobalLayout } from './shared/layouts'
+
+const ProductListingPage = React.lazy(
+  () => import('./features/category/pages/ProductListing')
+)
+
+const ProductDisplayPage = React.lazy(
+  () => import('./features/category/pages/ProductDisplay')
+)
+
+const CartPage = React.lazy(() => import('./features/cart/pages/Cart'))
+
+class App extends React.Component {
+  render(): React.ReactNode {
+    return (
+      <GlobalLayout>
+        <Switch>
+          <Route path='/product/:id' component={ProductDisplayPage} />
+          <Route path='/category/:name' component={ProductListingPage} />
+          <Route path='/cart' component={CartPage} />
+          <Route exact path='/' component={ProductListingPage} />
+          <Route path='*'>
+            <Redirect to='/' />
+          </Route>
+        </Switch>
+      </GlobalLayout>
+    )
+  }
 }
 
-export default App;
+export default App
