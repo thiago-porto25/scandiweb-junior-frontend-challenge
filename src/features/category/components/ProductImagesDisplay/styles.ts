@@ -1,14 +1,18 @@
 import styled from 'styled-components'
+import { applyCustomScrollbar } from '../../../../shared/helpers'
 
 export const ProductImagesDisplayContainer = styled.div`
   display: grid;
-  grid-template-columns: 80px 1fr;
+  grid-template-columns: 90px 1fr;
   column-gap: 40px;
 `
 
 export const ImagesList = styled.ul`
+  overflow-y: auto;
+  max-height: 500px;
+  ${({ theme }) => applyCustomScrollbar(theme)}
+
   @media (max-width: 450px) {
-    overflow-y: auto;
     max-height: 400px;
   }
 

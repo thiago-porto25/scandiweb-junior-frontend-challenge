@@ -7,7 +7,7 @@ export const applyCustomScrollbar = (theme: DefaultTheme) => {
     scrollbar-color: ${colors.neutral.highlight} ${colors.neutral.light};
 
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 7px;
     }
 
     ::-webkit-scrollbar-track {
