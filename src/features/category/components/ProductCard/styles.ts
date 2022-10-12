@@ -59,10 +59,12 @@ export const ProductCardContainer = styled.li<IProductCardContainerProps>`
     ${isOutOfStock &&
     css`
       opacity: 0.5;
-      pointer-events: none;
-      user-select: none;
 
-      ::after {
+      &:hover {
+      .add-to-cart-btn-container {
+        visibility: hidden;
+        pointer-events: none;
+        opacity: 0;
       }
     `}
   `}
