@@ -22,12 +22,13 @@ import { changeCurrentCategory } from '../../store/category.slice'
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-interface IProductListingPageProps extends PropsFromRedux, RouteComponentProps {
+interface IProductListingPageProps
+  extends PropsFromRedux,
+    RouteComponentProps<{ name?: string }> {
   dispatch: AppDispatch
 }
 
 interface IProductListingPageState {
-  hasFetched: boolean
   isRedirected: boolean
 }
 
@@ -36,17 +37,31 @@ class ProductListingPage extends React.Component<
   IProductListingPageState
 > {
   state = {
-    hasFetched: false,
     isRedirected: false,
   }
 
   componentDidMount(): void {
-    this.fetchProducts()
+    const categoryNameParam =
+      this.props.location.pathname === '/'
+        ? 'all'
+        : (this.props.match.params?.name as string)
+
+    this.fetchProducts(categoryNameParam)
   }
 
-  componentDidUpdate(): void {
-    this.fetchProducts()
-    this.redirectWrongCategory()
+  componentDidUpdate(prevProps: Readonly<IProductListingPageProps>): void {
+    const currentCategoryName = this.props.currentCategoryName
+    const currentCategoryProductList = this.props.currentCategoryProductList
+
+    if (
+      currentCategoryName &&
+      currentCategoryName !== prevProps.currentCategoryName &&
+      currentCategoryProductList &&
+      currentCategoryProductList.length > 0
+    ) {
+      this.fetchProducts(currentCategoryName)
+      this.redirectWrongCategory()
+    }
   }
 
   redirectWrongCategory = (): void => {
@@ -63,17 +78,8 @@ class ProductListingPage extends React.Component<
     }
   }
 
-  fetchProducts = (): void => {
-    const currentCategoryName = this.props.currentCategoryName
-
-    if (
-      currentCategoryName &&
-      !this.state.hasFetched &&
-      !this.props.currentCategoryProductList
-    ) {
-      this.setState({ hasFetched: true })
-      this.props.dispatch(getCategoryProductsThunk('all'))
-    }
+  fetchProducts = (name: string): void => {
+    this.props.dispatch(getCategoryProductsThunk(name))
   }
 
   render(): React.ReactNode {
