@@ -20,6 +20,7 @@ import {
   AttributeList,
   ButtonContainer,
   TitleContainer,
+  Description,
 } from './styles'
 
 interface IAttributeValues {
@@ -139,7 +140,7 @@ class ProductInformation extends React.Component<
           </Button>
         </ButtonContainer>
 
-        {htmlParser(product.description)}
+        <Description>{htmlParser(product.description)}</Description>
 
         <Toast
           text='Item added to bag!'
