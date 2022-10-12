@@ -59,10 +59,18 @@ export const ProductCardContainer = styled.li<IProductCardContainerProps>`
     ${isOutOfStock &&
     css`
       opacity: 0.5;
-      pointer-events: none;
-      user-select: none;
 
-      ::after {
+      &:hover {
+      .add-to-cart-btn-container {
+        visibility: hidden;
+        pointer-events: none;
+        opacity: 0;
+
+         @media (max-width: 620px) {
+          visibility: hidden;
+          pointer-events: none;
+          opacity: 0;
+        }
       }
     `}
   `}
@@ -94,8 +102,8 @@ export const ProductCardImageContainer = styled.div<IProductCardImageContainerPr
 export const ProductCardImage = styled.img`
   width: 354px;
   max-width: 354px;
-  max-height: 330px;
-  height: 330px;
+  min-height: 354px;
+  height: auto;
   object-fit: cover;
 
   @media (max-width: 620px) {

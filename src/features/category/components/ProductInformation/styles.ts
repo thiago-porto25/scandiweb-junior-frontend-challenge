@@ -29,3 +29,21 @@ export const ButtonContainer = styled.div`
   height: 52px;
   margin-bottom: 40px;
 `
+
+export const Description = styled.div`
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a {
+    margin: initial !important;
+  }
+
+  ul,
+  li {
+    list-style-type: initial !important;
+  }
+`

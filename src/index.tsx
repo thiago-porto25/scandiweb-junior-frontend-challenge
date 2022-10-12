@@ -19,20 +19,18 @@ client.setEndpoint('http://localhost:4000')
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <PersistGate loading={<LoadingLayout />} persistor={persistor}>
-          <ErrorBoundary>
-            <Router>
-              <Suspense fallback={<LoadingLayout />}>
-                <App />
-              </Suspense>
-            </Router>
-          </ErrorBoundary>
-        </PersistGate>
-      </Provider>
-      <GlobalStyles />
-    </ThemeProvider>
-  </React.StrictMode>
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <PersistGate loading={<LoadingLayout />} persistor={persistor}>
+        <ErrorBoundary>
+          <Router>
+            <Suspense fallback={<LoadingLayout />}>
+              <App />
+            </Suspense>
+          </Router>
+        </ErrorBoundary>
+      </PersistGate>
+    </Provider>
+    <GlobalStyles />
+  </ThemeProvider>
 )

@@ -59,7 +59,7 @@ class ErrorBoundary extends React.Component<
           </Typography>
 
           <ButtonContainer>
-            <Button onClick={() => location.reload()}>Reload Page</Button>
+            <Button onClick={() => location.replace('/')}>Reload Page</Button>
           </ButtonContainer>
         </ErrorBoundaryContainer>
       )
