@@ -32,5 +32,5 @@ export const FocusedImage = styled.img`
 export const SmallImage = styled.img`
   width: 80px;
   height: 80px;
-  object-fit: cover;
+  object-fit: contain;
 `
